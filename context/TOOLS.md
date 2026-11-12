@@ -15,7 +15,7 @@ Never a credential in this file. A key, token, or password anywhere in the repos
 | bolt.new | Builder for F-06 (HW5, DDR-001); gets the spec and context files I give it, no credentials | Trial | 2026-11-12 | Free: 300K tokens/day, 1M/month; Pro $25/month | Hand-build with Copilot (~3–4 h per feature) |
 | GitHub Copilot | Code suggestions in the editor; reads open files | Adopt | 2026-11-12 | Free for verified students; Free plan 2,000 completions/month | Turn it off (0 h) |
 | Claude Code (Claude Opus 5.5) | Helped with the Sourcing Audit (DDR-003); reads the repo, runs commands with my logins | Trial | 2026-11-12 | Pro $20/month or higher | Do it by hand (0 h runtime) |
-| Google AI Studio | Tried for F-06 in HW5, errored | Hold | 2026-11-12 | Free; free-tier content used to train Google models | Not used |
+| Google AI Studio | Builder. Errored in HW5 (F-06); built F-02 in HW6 (4/4 rows) but off-stack. Gets only the spec I paste. | Trial | 2026-11-12 | Free; free-tier content used to train Google models | bolt.new or Copilot (under 1 h) |
 
 Removed in Audit 1 (2026-11-12): Gemini `gemini-3.5-flash` and Cloudflare AI Gateway. Both were template config the Worker never used. The deprecations page shows 3.5-flash already pulled from AI Studio. If SkillPath ever adds an AI feature, re-add the model with a fresh deprecations-page check dated here.
 

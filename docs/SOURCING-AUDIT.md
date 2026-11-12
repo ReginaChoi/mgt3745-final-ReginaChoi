@@ -33,7 +33,7 @@ Total: 100
 | Cloudflare AI Gateway | platform | worker/wrangler.toml `[vars] AI_GATEWAY_ID` (placeholder) | No, same, never called |
 | bolt.new | builder | docs/DDR-001.md (HW5, F-06) | Yes, its F-06 export code is in app.js |
 | GitHub Copilot | builder | docs/DDR-002.md (HW4 Worker/D1), devcontainer extension | Yes, helped write worker/src/index.js |
-| Google AI Studio | builder | README AI Use, context/EVALS.md (HW5) | No, it errored and produced nothing |
+| Google AI Studio | builder | README AI Use, context/EVALS.md (HW5); [mgt3745-hw6 docs/DDR-002.md](https://github.com/ReginaChoi/mgt3745-hw6/blob/main/docs/DDR-002.md) (HW6, built F-02 for the team's Compliance Gate) | No. None of its code is in SkillPath |
 | Claude Code (Claude Opus 5.5) | builder | docs/DDR-003.md (this audit) | No, docs and config only |
 | CDN scripts | CDN script | `grep -rn "<script src=" *.html` finds only `app.js` (local) | None; no third-party scripts or fonts |
 
@@ -52,7 +52,7 @@ Total: 100
 | Cloudflare AI Gateway | Platform | Cloudflare | Cloudflare terms | Core features free; legacy logs capped at 100,000 ([pricing](https://developers.cloudflare.com/ai-gateway/reference/pricing/)) | `AI_GATEWAY_ID` is still the template placeholder. No gateway exists for this project. | 2026-11-12 |
 | bolt.new | Hosted builder | StackBlitz | bolt.new terms | Free: 300K tokens/day, 1M/month. Pro: $25/month ([pricing](https://bolt.new/pricing)) | HW5: 4/4 EARS rows on the first output, but the test script needed a manual fix (EVALS.md error log) | 2026-11-12 |
 | GitHub Copilot | Assistant | GitHub (Microsoft) | GitHub Copilot terms | Free: 2,000 completions/month. Student: free for verified students. Pro: $10/month ([plans](https://docs.github.com/en/copilot/get-started/plans)) | Already installed by the devcontainer | 2026-11-12 |
-| Google AI Studio | Hosted builder | Google | Free tier; content used to improve Google products ([pricing](https://aistudio.google.com/docs/pricing)) | Free | HW5: returned `Request contains an invalid argument` even on a minimal request, and produced no code | 2026-11-12 |
+| Google AI Studio | Hosted builder | Google | Free tier; content used to improve Google products ([pricing](https://aistudio.google.com/docs/pricing)) | Free | HW5 (2026-10-01): returned `Request contains an invalid argument` even on a minimal request, and produced no code. HW6 (2026-10-22, Gemini 3.8 Flash): worked, 4/4 EARS rows and 34/34 shared tests. But it built extras nobody asked for (Express server, JSON-file storage, an audit log, an unused `@google/genai` dependency), didn't use the Worker + D1 stack, and review and fixes took 6.4 h for a net of -3.7 h (hw6 DDR-002) | 2026-11-12 |
 | Claude Code (Claude Opus 5.5) | CLI agent | Anthropic | Anthropic consumer terms | Needs Pro ($20/month, or $17 billed annually) or higher; not on Free ([pricing](https://claude.com/pricing)) | Used for this audit; logged in DDR-003 | 2026-11-12 |
 | CDN scripts | n/a | n/a | n/a | n/a | None found by grep | 2026-11-12 |
 
@@ -73,7 +73,7 @@ Weighted = (Stability×30 + Pricing×15 + Fit×20 + Exit×35) / 5, so the range 
 | Cloudflare AI Gateway | 4 | 5 | 4 | 5 | 90 | Hold | Scores well as a service, but I don't use it. A placeholder I'm not using is just clutter and a fake trust boundary, so I'm removing it. |
 | bolt.new | 3 | 3 | 3 | 4 | 67 | Trial | Worked for F-06, but token limits and the manual fixes it needed mean I use it only behind a DDR and my own tests. |
 | GitHub Copilot | 4 | 4 | 5 | 5 | 91 | Adopt | Free for students, in the devcontainer already, and nothing breaks if I turn it off. |
-| Google AI Studio | 1 | 4 | 3 | 5 | 65 | Hold | It failed outright in HW5 and free-tier content trains Google's models, so I won't use it for more builds. |
+| Google AI Studio | 3 | 4 | 3 | 5 | 77 | Trial | Worked in HW6 after failing in HW5, but it overbuilds and ignores my stack, and free-tier content trains Google's models, so I'd use it only behind a DDR and my own tests. (Corrected from Hold/65; I first scored it on HW5 alone and missed my HW6 evidence.) |
 | Claude Code (Opus 5.5) | 4 | 2 | 3 | 5 | 77 | Trial | Useful, but it's a paid subscription and not something the course hands out, so it's used only with a DDR and my own verification. |
 | CDN scripts | n/a | n/a | n/a | n/a | n/a | n/a | There aren't any. Keeping it that way is the point. |
 
@@ -86,12 +86,14 @@ Weighted = (Stability×30 + Pricing×15 + Fit×20 + Exit×35) / 5, so the range 
 | GitHub repo + Codespaces | Codespaces hours run out, or GitHub is unavailable near a deadline | Local clone in VS Code (what I used for this audit) for code; GitLab for hosting | 1 for dev; 2 for hosting | Yes, in effect: this whole audit ran in a local clone on Windows, not in a Codespace |
 | wrangler | A bad release, a compromised publishing account, or an advisory in `npm audit` | Stay on the pinned 4.160.1; worst case, deploy through the Cloudflare dashboard by pasting `src/index.js` | 1 | Pin tested 2026-11-12: `npx wrangler --version` is 4.160.1, `npm test` 4/4 |
 | bolt.new (Trial) | Token limits block a feature, or its output fails my evals twice in a row | Hand-build in Codespaces with Copilot, which is how the Worker was built | 3 to 4 per feature (from DDR-001, where review and fixes took longer than the build) | No |
+| Google AI Studio (Trial) | It errors again like HW5, or the free-tier terms change | bolt.new or Copilot, using the same committed spec | Under 1 (nothing in SkillPath depends on it) | No |
 | Claude Code (Trial) | I stop paying for the subscription, or its output fails my verification | Do the work by hand with Copilot; nothing at runtime depends on it | 0 runtime; about 4 more hours for an audit like this one | No |
 
 ### Changes Caused by This Audit
 - **Pinned** wrangler from `^4` to exactly `4.160.1` (commit `ce7f944`). This rules out surprise upgrades from a single-account package that releases almost daily. `npm test` 4/4 afterward.
 - **Removed** the unused Gemini model, `CF_ACCOUNT_ID`/`AI_GATEWAY_ID` placeholders, the Gemini key-leak test, and `test:proxy` (commit `71233f5`). `wrangler deploy --dry-run` shows only `env.DB`; `npm test` 4/4 afterward.
 - **ADR-001 amended**: added a line to its Consequences pointing here. The decision itself didn't change, since Build still wins, so no ADR-002.
+- **Corrected the Google AI Studio row** with HW6 evidence (hw6 DDR-002): stability 1 to 3, weighted 65 to 77, ring Hold to Trial, and an exit plan added. The first pass only looked at HW5.
 - **DDR-003** added for Claude Code's help with this audit, with a row in docs/DDR-LOG.md.
 
 ### Prediction Stake Resolution

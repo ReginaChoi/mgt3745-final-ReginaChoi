@@ -54,6 +54,6 @@ Things this interface will never do, and why.
 
 ## Sources
 
-- **Admired:** Free File Fillable Forms, the IRS's plain-form tax tool. It uses a simple form-oriented interface without unnecessary navigation or decorative elements. ![Admired](image-8.png)
+- **Admired:** Free File Fillable Forms, the IRS's plain-form tax tool. It uses a simple form-oriented interface without unnecessary navigation or decorative elements. ![Admired](../docs/img/image-8.png)
 
 - **Resented:** A job-application portal with a spinning modal and progress indicator during draft saving. The example is based on the author's experience rather than a reproduced screenshot. The specific problem being avoided is unnecessary interruption and uncertainty during a simple save action.

@@ -8,11 +8,11 @@
 
 **Status:** partly working. The evidence log (F-03) and export (F-06) work against the deployed Worker and D1, and `npm test` passes 4/4. The page isn't on GitHub Pages yet, and the Worker's CORS origin still points at the old Codespace URL.
 
-**Hours spent:** see [docs/DDR-LOG.md](docs/DDR-LOG.md) for delegated hours; running total to be added.
+**Hours spent:** 31.25 recorded so far: HW3 14 (mgt3745-hw3 README), HW4 12 (mgt3745-hw4 README), HW5 5.25 (tool run plus review and fixes, [docs/DDR-001.md](docs/DDR-001.md)). HW1, HW2 and HW7 weren't tracked, so the real total is higher.
 
 ## See It Work
 
-![The product in use](context/image-1.png)
+![The product in use](docs/img/image-1.png)
 
 ## Who It Is For
 
@@ -46,4 +46,4 @@ cd worker && npx wrangler dev
 
 ## AI Use
 
-Claude Code (Claude Opus 5.5) helped run the HW7 Sourcing Audit and port HW5 into this repo, logged in [docs/DDR-003.md](docs/DDR-003.md). bolt.new generated the first version of F-06 (the export) in HW5, and I reviewed and fixed it before keeping it. Google AI Studio was tried for the same feature but errored before producing code. The details and verification are in [docs/DDR-LOG.md](docs/DDR-LOG.md).
+Claude Code (Claude Opus 5.5) helped run the HW7 Sourcing Audit and port HW5 into this repo, logged in [docs/DDR-003.md](docs/DDR-003.md). bolt.new generated the first version of F-06 (the export) in HW5, and I reviewed and fixed it before keeping it ([docs/DDR-001.md](docs/DDR-001.md)). GitHub Copilot helped write the HW4 Worker and D1 backend ([docs/DDR-002.md](docs/DDR-002.md)). Google AI Studio was tried for F-06 but errored before producing code. In HW6 it did build a feature for the team problem, but none of that code is in SkillPath. The details and verification are in [docs/DDR-LOG.md](docs/DDR-LOG.md).
