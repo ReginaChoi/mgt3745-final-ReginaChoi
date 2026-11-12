@@ -80,11 +80,19 @@ Weighted = (Stability×30 + Pricing×15 + Fit×20 + Exit×35) / 5, so the range 
 ### Exit Plans (every critical dependency, every Trial)
 | Dependency | Trigger | Substitute | Hours to swap | Tested? (date and how) |
 |------------|---|---|---|---|
+| Cloudflare D1 (holds data) | Free tier drops below my usage or starts charging; an outage longer than a day; export stops working | SQLite file behind a small Node server, or Supabase Postgres (the schema is one table) | 6 (1 to export and load, about 5 to rewrite the two queries and redeploy) | **Yes, 2026-11-12 15:58 ET.** `npx wrangler d1 export mgt3745-entries --remote --output=backup.sql` gave 22 lines and 12 rows. Loaded it into a fresh local D1 with `npx wrangler d1 execute mgt3745-entries --local --file=backup.sql`, and `SELECT COUNT(*) FROM evidence` returned 12 locally and 12 remotely. Backup not committed (`backup.sql` is in .gitignore). |
+| Cloudflare Workers (serves users) | Workers Free changes so 100K requests/day or 10 ms CPU no longer covers me, or my account is suspended | Netlify or Vercel functions; the handler is one `fetch(request, env)` function | 5 (move the handler, swap `env.DB` for the new database client, update `API` in app.js and CORS) | Partly. `npx wrangler deploy --dry-run` on 2026-11-12 confirms the Worker bundles to 2.36 KiB with only the D1 binding, so there's nothing else to untangle. I didn't deploy it anywhere else. |
+| GitHub Pages (serves users) | Pages goes down, changes terms, or my repo has to go private | Cloudflare Pages or Netlify (drag-and-drop static files) | 1 | Not yet; the Pages site goes live in Module 12 |
+| GitHub repo + Codespaces | Codespaces hours run out, or GitHub is unavailable near a deadline | Local clone in VS Code (what I used for this audit) for code; GitLab for hosting | 1 for dev; 2 for hosting | Yes, in effect: this whole audit ran in a local clone on Windows, not in a Codespace |
+| wrangler | A bad release, a compromised publishing account, or an advisory in `npm audit` | Stay on the pinned 4.160.1; worst case, deploy through the Cloudflare dashboard by pasting `src/index.js` | 1 | Pin tested 2026-11-12: `npx wrangler --version` is 4.160.1, `npm test` 4/4 |
+| bolt.new (Trial) | Token limits block a feature, or its output fails my evals twice in a row | Hand-build in Codespaces with Copilot, which is how the Worker was built | 3 to 4 per feature (from DDR-001, where review and fixes took longer than the build) | No |
+| Claude Code (Trial) | I stop paying for the subscription, or its output fails my verification | Do the work by hand with Copilot; nothing at runtime depends on it | 0 runtime; about 4 more hours for an audit like this one | No |
 
 ### Changes Caused by This Audit
-- <removal, pin, or replacement, with commit hash>
-- <ADR amended or superseded, if any>
-- <DDR lines added, if AI helped>
+- **Pinned** wrangler from `^4` to exactly `4.160.1` (commit `ce7f944`). This rules out surprise upgrades from a single-account package that releases almost daily. `npm test` 4/4 afterward.
+- **Removed** the unused Gemini model, `CF_ACCOUNT_ID`/`AI_GATEWAY_ID` placeholders, the Gemini key-leak test, and `test:proxy` (commit `71233f5`). `wrangler deploy --dry-run` shows only `env.DB`; `npm test` 4/4 afterward.
+- **ADR-001 amended**: added a line to its Consequences pointing here. The decision itself didn't change, since Build still wins, so no ADR-002.
+- **DDR-003** added for Claude Code's help with this audit, with a row in docs/DDR-LOG.md.
 
 ### Prediction Stake Resolution
-<What happened, and whether the prediction held.>
+**Did not hold.** I predicted more than 5 publishing accounts on wrangler. `npm view wrangler maintainers` on 2026-11-12 shows exactly one, `wrangler-publisher <workers-devprod@cloudflare.com>`, a shared Cloudflare publishing account. miniflare and workerd use the same account. I assumed a big company meant many publishers, but Cloudflare publishes through one automated account (with npm provenance attestations, per deps.dev). That's fewer doors to phish, but one compromised account would reach all three packages at once. That's the main reason I pinned wrangler instead of leaving it on `^4`.

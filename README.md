@@ -38,10 +38,12 @@ cd worker && npx wrangler dev
 | Delegation log | [docs/DDR-LOG.md](docs/DDR-LOG.md) |
 | Decision memo | [docs/DECISION-001.md](docs/DECISION-001.md) |
 | Real-user feedback | [docs/FEEDBACK.md](docs/FEEDBACK.md) |
+| Sourcing audit (dependencies, rings, exit plans) | [docs/SOURCING-AUDIT.md](docs/SOURCING-AUDIT.md) |
+| Tools ledger | [context/TOOLS.md](context/TOOLS.md) |
 | Scaffold audits | [docs/AUDIT.md](docs/AUDIT.md) |
 | Deployment notes | [docs/DEPLOY.md](docs/DEPLOY.md) |
 | Self-review with Homogenization Check | [docs/SELF-REVIEW.md](docs/SELF-REVIEW.md) |
 
 ## AI Use
 
-bolt.new generated the first version of F-06 (the export) in HW5, and I reviewed and fixed it before keeping it. Google AI Studio was tried for the same feature but errored before producing code. The details and verification are in [docs/DDR-LOG.md](docs/DDR-LOG.md).
+Claude Code (Claude Opus 5.5) helped run the HW7 Sourcing Audit and port HW5 into this repo, logged in [docs/DDR-003.md](docs/DDR-003.md). bolt.new generated the first version of F-06 (the export) in HW5, and I reviewed and fixed it before keeping it. Google AI Studio was tried for the same feature but errored before producing code. The details and verification are in [docs/DDR-LOG.md](docs/DDR-LOG.md).
