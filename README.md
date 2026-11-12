@@ -28,21 +28,25 @@ cd worker && npx wrangler dev
 
 ## The Record
 
-| Artifact | Link |
-|---|---|
-| Problem and success measures | [context/PROJECT.md](context/PROJECT.md) |
-| Users and jobs | [context/USERS.md](context/USERS.md) |
-| Features (EARS rows) | [context/FEATURES.md](context/FEATURES.md) |
-| Architecture and ADRs | [context/ARCHITECTURE.md](context/ARCHITECTURE.md), [docs/ADR-001.md](docs/ADR-001.md) |
-| Evals, RAT, Stakes, production verdict | [context/EVALS.md](context/EVALS.md) |
-| Delegation log | [docs/DDR-LOG.md](docs/DDR-LOG.md) |
-| Decision memo | [docs/DECISION-001.md](docs/DECISION-001.md) |
-| Real-user feedback | [docs/FEEDBACK.md](docs/FEEDBACK.md) |
-| Sourcing audit (dependencies, rings, exit plans) | [docs/SOURCING-AUDIT.md](docs/SOURCING-AUDIT.md) |
-| Tools ledger | [context/TOOLS.md](context/TOOLS.md) |
-| Scaffold audits | [docs/AUDIT.md](docs/AUDIT.md) |
-| Deployment notes | [docs/DEPLOY.md](docs/DEPLOY.md) |
-| Self-review with Homogenization Check | [docs/SELF-REVIEW.md](docs/SELF-REVIEW.md) |
+Milestone check-in items 1 to 8 are numbered in the first column.
+
+| # | Artifact | Link |
+|---|---|---|
+| 1 | Problem, reframe, temporary-resolution stance, success measures | [context/PROJECT.md](context/PROJECT.md) |
+| 2 | Users and jobs | [context/USERS.md](context/USERS.md) |
+| 3 | Features (Kano, EARS rows, exclusions) | [context/FEATURES.md](context/FEATURES.md) |
+| 4 | ADR-001 (Gate with weights) | [docs/ADR-001.md](docs/ADR-001.md) |
+| 4 | Architecture diagram and Trust Boundary | [context/ARCHITECTURE.md](context/ARCHITECTURE.md) |
+| 5 | RAT and Prediction Stake | [context/EVALS.md](context/EVALS.md) |
+| 6 | First DDR (bolt.new, F-06) and the delegation log | [docs/DDR-001.md](docs/DDR-001.md), [docs/DDR-LOG.md](docs/DDR-LOG.md) |
+| 7 | Context Scaffold Audit 1 | [docs/AUDIT.md](docs/AUDIT.md) |
+| 8 | Sourcing Audit (HW7) and the tools ledger | [docs/SOURCING-AUDIT.md](docs/SOURCING-AUDIT.md), [context/TOOLS.md](context/TOOLS.md) |
+| | Decision memo (criteria due before deployment, Nov 19) | [docs/DECISION-001.md](docs/DECISION-001.md) |
+| | Real-user feedback (Nov 19) | [docs/FEEDBACK.md](docs/FEEDBACK.md) |
+| | Deployment notes | [docs/DEPLOY.md](docs/DEPLOY.md) |
+| | Self-review with Homogenization Check (Dec 14) | [docs/SELF-REVIEW.md](docs/SELF-REVIEW.md) |
+
+**Dating note.** The final-project RAT and Prediction Stake in context/EVALS.md were first committed on 2026-11-12. That's after F-01, F-03 and F-06 were built (HW3 to HW5, carried in by commit `3ca78d7`) but before the deployment build and the real-user sessions they predict. The HW5 Stake for the F-06 delegation was committed before that build (2026-10-01 in the HW5 repo).
 
 ## AI Use
 

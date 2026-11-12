@@ -11,9 +11,9 @@ Profiles and evidence in USERS.md. PROFILE-01 (accounting student or recent grad
 ## Scope and non-goals
 Included behavior: an accounting student picks a career path, sees the skills that path requires, attaches evidence from coursework or internships to a skill, and sees that skill's status change from not yet evidenced to evidenced.
 
-Non-goals: does not predict which jobs AI will eliminate, guarantee employment, find or create internships, claim any skill stays valuable long-term, choose a career path for the student, replace a degree or advisor, or compare students against each other.
+Exclusions (non-goals): does not predict which jobs AI will eliminate, guarantee employment, find or create internships, claim any skill stays valuable long-term, choose a career path for the student, replace a degree or advisor, or compare students against each other.
 
-**Full product scope vs. build implementation.** FEATURES.md describes six candidate features (F-01 through F-06). Only F-03, the evidence log, is implemented, first as three static HW3 files with browser storage, now as a Cloudflare Worker and D1 backing the same page (see ADR-002 in ARCHITECTURE.md). F-01, F-02, F-04, F-05, and F-06 remain specified below but unbuilt. Within F-03 itself, Behavior steps 1 through 5 are implemented and steps 6 and 7 are deferred.
+**Full product scope vs. build implementation (updated 2026-11-12).** FEATURES.md describes six candidate features (F-01 through F-06). Three are built and deployed on the Worker + D1 (docs/ADR-001.md): **F-01** (the skill list for a chosen path, hand-built in HW3 with the paths hard-coded in app.js), **F-03** (the evidence log, hand-built in HW3 and moved to the Worker and D1 in HW4), and **F-06** (the export, delegated to bolt.new in HW5, docs/DDR-001.md). F-02, F-04 and F-05 are specified but not built. Within F-03, Behavior steps 1 to 5 and 7 are implemented, and step 6 (in progress) is deferred.
 
 ### Kano hypotheses
 
@@ -27,7 +27,7 @@ Non-goals: does not predict which jobs AI will eliminate, guarantee employment, 
 | F-06 | Exportable skill summary (resume or portfolio format) | Attractive | Accounting students / 9/17/2026 | INT-03's stated reason for wanting the tool at all was "hopefully I'd get a job," which points at output an employer can see rather than at tracking for its own sake. |
 
 ## Behavior
-Sequence, conditions, actions, and visible outcomes for F-03. Steps 1 through 5 are implemented; steps 6 and 7 are deferred (see ADR-001, unchanged by ADR-002).
+Sequence, conditions, actions, and visible outcomes for F-03 (with F-06 as step 7). Steps 1 to 5 and 7 are implemented; step 6 is deferred.
 
 1. The page loads and reads any previously saved evidence, now from the deployed Worker instead of browser storage.
 2. The student selects a career path from the available paths.
@@ -35,7 +35,7 @@ Sequence, conditions, actions, and visible outcomes for F-03. Steps 1 through 5 
 4. The student selects a skill and enters a short description of evidence from coursework, a project, or an internship.
 5. The system sends the evidence to the Worker, marks that skill evidenced once the server confirms it, and redraws the list. If the save fails, the entered text is preserved and an error is shown.
 6. The student marks a skill in progress as an intermediate state between not yet evidenced and evidenced. (Deferred.)
-7. The student exports a summary of evidenced skills. (Deferred.)
+7. The student exports a summary of evidenced skills. (Implemented in HW5 as F-06, AC-9 to AC-12.)
 
 ## Constraints
 Platform, data, privacy, scope, and relevant limits: this is a tracking system, not a forecaster of which jobs AI will automate. It must distinguish a skill with attached evidence from one the student merely claims. Skill data is no longer private to one browser by default now that it lives on a server; see TOOLS.md for what that server is trusted with. No peer comparison without opt-in. The path and skill lists must be editable, since what counts as relevant will change. The system must not present itself as a substitute for coursework, internships, or an advisor. Student-entered text must be rendered as text, never as markup, on the way in and on the way out.
@@ -81,4 +81,13 @@ Platform, data, privacy, scope, and relevant limits: this is a tracking system, 
 | Server returns 500 | (not applicable in HW3) | CANNOT TEST YET | No safe test was identified for intentionally triggering an unhandled Worker error without disrupting the deployed database. |
 | Second client writes to the same table | (not applicable in HW3) | DEFERRED (ADR-002) | The current evidence table has no per-user separation. |
 
-Cover a normal action, relevant invalid input, and persistence or failure. Classify unselected requirements separately. Record actual outcomes; all-PASS is acceptable with evidence, and an honest non-PASS row is not a failure of the assignment.
+### F-06, verified in HW5 (docs/DDR-001.md) and rerun 2026-11-12
+
+| Criterion | Steps and input | Expected result | Observed result | Status | Evidence |
+|---|---|---|---|---|---|
+| AC-9 | Select Audit and press Export. | The summary lists the path, each skill, and its status. | Summary showed Audit, its three skills and statuses, and the evidenced count. | PASS | DDR-001 manual check 10 |
+| AC-10 | Save evidence on a skill, then export. | The evidence text appears under that skill. | `Evidence:` line present; `npm test` AC-10 eval passes 4/4 on 2026-11-12. | PASS | evals/worker.test.js |
+| AC-11 | Press Export with no path selected. | Export is blocked with a message naming what's missing. | "Choose a career path before exporting." | PASS | DDR-001 manual check 10 |
+| AC-12 | Export a path with no skills. | A message says there's nothing to export. | "There are no skills to summarize for this path." | PASS | DDR-001 manual check 10 |
+
+Not selected for build (classified separately): F-02, F-04, F-05, and AC-7 (inactive paths).

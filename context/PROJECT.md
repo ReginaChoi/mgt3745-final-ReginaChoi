@@ -1,6 +1,29 @@
 # PROJECT
 
-Status: ACTIVE.
+Status: ACTIVE. Final-project sections (the first four below) added 2026-11-12. The HW1 to HW3 sections underneath stay as written, so the history of the reframe is visible.
+
+## Problem, in one sentence (final project)
+
+Accounting students aiming at judgment-heavy careers like audit, forensic accounting, or the IRS can't tell which skills that path needs, and they graduate without proof they built any of them.
+
+## Reframe
+
+- **Original framing (HW1):** "AI is going to take accounting jobs, so how do I prepare?" This came from friends and church members telling me to switch majors.
+- **Reframe (HW3, after INT-03):** the problem is skill clarity and proof, not AI. INT-03, a 2025 accounting graduate aiming at audit, said flatly that AI didn't change how she prepared. What she lacked was knowing which skills to build, plus any experience to point to.
+- **Why the reframe is the better problem:** it's the one a real target user described. It's also one I can do something about in six weeks: show the skills for a chosen path and make the student attach real evidence. "Will AI take accounting jobs" isn't something any product can answer.
+
+## Temporary-resolution stance
+
+This is a wicked problem, so SkillPath is a temporary resolution, not a solution. It doesn't decide which skills will matter in ten years. It makes the current guess visible and checkable for one student at a time. It's **good enough for now** if a student leaves with at least three skills on their path backed by real evidence (the HW3 Adequacy Sketch below, applied to users instead of me). I'll **revisit** if any of these happen:
+- the RAT is refuted (students see the skills but don't attach evidence; see EVALS.md);
+- someone working in audit or forensic accounting says a path's skill list is wrong;
+- users need private evidence, which the shared D1 table can't give them (ADR-001 reversal trigger).
+
+## Success measures
+
+- **Outcome:** the number of real users (out of at least 3 observed) who end with **3 or more skills marked Evidenced** on their chosen path. Baseline: 0, since INT-03 had no evidence tied to any skill. Target by Dec 14: at least 2 of 3. Measured from the D1 export, counted per user.
+- **Leading indicator:** the number of users who save **at least one piece of evidence within 5 minutes** of opening the page in their first observed session, with no help from me. Target: at least 2 of 3. Observed and timed, recorded in docs/FEEDBACK.md.
+- **Guardrail:** the evidence table is shared and anyone with the URL can read it (ADR-001), so **0 entries may contain a real name, email, student ID, or grade**, checked in the D1 export after every session. Also **0 lost saves**: the page never shows "Evidenced" for a save that doesn't appear in `GET /entries`. One violation of either stops user sessions until it's fixed.
 
 ## Candidate Problem
 
