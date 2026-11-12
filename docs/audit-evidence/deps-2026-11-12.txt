@@ -1,0 +1,24 @@
+# Captured 2026-11-12T15:55:52-05:00
+$ deps.dev API: wrangler@4.161.0
+{"versionKey":{"system":"NPM","name":"wrangler","version":"4.161.0"},"publishedAt":"2026-11-12T13:40:34Z","isDefault":true,"isDeprecated":false,"deprecatedReason":"","licenses":["Apache-2.0 OR MIT"],"advisoryKeys":[],"links":[{"label":"HOMEPAGE","url":"https://github.com/cloudflare/workers-sdk#readme"},{"label":"ISSUE_TRACKER","url":"https://github.com/cloudflare/workers-sdk/issues"},{"label":"ATTESTATION","url":"https://registry.npmjs.org/-/npm/v1/attestations/wrangler@4.161.0"},{"label":"ORIGIN","url":"https://registry.npmjs.org/wrangler/4.161.0"},{"label":"SOURCE_REPO","url":"git+https://github.com/cloudflare/workers-sdk.git"}],"slsaProvenances":[{"sourceRepository":"https://github.com/cloudflare/workers-sdk","commit":"1e688baedfe8b61b091043832b438c362590953a","url":"https://registry.npmjs.org/-/npm/v1/attestations/wrangler@4.161.0","verified":true}],"attestations":[{"type":"https://slsa.dev/provenance/v1","url":"https://registry.npmjs.org/-/npm/v1/attestations/wrangler@4.161.0","verified":true,"sourceRepository":"https://github.com/cloudflare/workers-sdk","commit":"1e688baedfe8b61b091043832b438c362590953a"}],"registries":["https://registry.npmjs.org/"],"relatedProjects":[{"projectKey":{"id":"github.com/cloudflare/workers-sdk"},"relationProvenance":"UNVERIFIED_METADATA","relationType":"ISSUE_TRACKER"},{"projectKey":{"id":"github.com/cloudflare/workers-sdk"},"relationProvenance":"UNVERIFIED_METADATA","relationType":"SOURCE_REPO"},{"projectKey":{"id":"github.com/cloudflare/workers-sdk"},"relationProvenance":"SLSA_ATTESTATION","relationType":"SOURCE_REPO"}]}
+$ deps.dev project scorecard (cloudflare/workers-sdk)
+{"projectKey":{"id":"github.com/cloudflare/workers-sdk"},"openIssuesCount":605,"starsCount":4705,"forksCount":1635,"license":"Apache-2.0","description":"⛅️ Home to Wrangler, the CLI for Cloudflare Workers®","homepage":"https://developers.cloudflare.com/workers/"}
+$ npm view miniflare version maintainers dist-tags
+version = '4.20260730.0'
+maintainers = 'wrangler-publisher <workers-devprod@cloudflare.com>'
+dist-tags = {
+  'latest-2': '2.14.4',
+  'v4-rc': '4.20250214.0-rc.0',
+  next: '0.0.0-f7c347a67',
+  'legacy-beta': '0.0.0-b0a40729a',
+  legacy: '3.20250718.3',
+  latest: '4.20260730.0',
+  beta: '5.20261110.2-beta'
+}
+$ npm view workerd maintainers
+wrangler-publisher <workers-devprod@cloudflare.com>
+$ npm view esbuild maintainers
+esbuild <evan.exe+esbuild@gmail.com>
+$ Node release schedule (EOL dates)
+v22 {"start":"2024-04-24","lts":"2024-10-29","maintenance":"2025-10-21","end":"2027-04-30","codename":"Jod"}
+v24 {"start":"2025-05-06","lts":"2025-10-28","maintenance":"2026-10-20","end":"2028-04-30","codename":"Krypton"}

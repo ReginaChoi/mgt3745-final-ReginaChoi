@@ -42,10 +42,40 @@ Total: 100
 ### Evidence (each fact with its source and the date you read it)
 | Dependency | Latest version and date | Maintainers or vendor | License or terms | Limits or price | Other notes | Checked on |
 |------------|------|------|------|------|------|------|
+| wrangler | 4.161.0, published 2026-11-12 13:40 UTC (`npm view`) | Cloudflare; **one** publishing account, `wrangler-publisher` (`npm view wrangler maintainers`) | MIT OR Apache-2.0 | Free | 18 4.x releases since 2026-10-12, and one came out this morning. `^4` in package.json means the next `npm install` can pull any of them. 4.161.0 depends on `miniflare@5.20261110.2-beta`, which is on npm's `beta` tag, not `latest`. `npm audit`: 0 vulnerabilities. deps.dev: no advisories, npm provenance attestation present. npm warned that esbuild and workerd run install scripts. | 2026-11-12 |
+| Cloudflare Workers | Platform; `compatibility_date = 2026-10-01` | Cloudflare | Cloudflare free-tier terms; logs request IP/timestamp by default | Free: 100,000 requests/day, 10 ms CPU per request. Paid: $5/month minimum ([pricing page](https://developers.cloudflare.com/workers/platform/pricing/)) | Live and answering: `GET /entries` returned 200 during `npm test` | 2026-11-12 |
+| Cloudflare D1 | Platform | Cloudflare | Same as Workers | Free: 500 MB per database, 5 GB per account, 10 databases, 5M rows read/day, 100K rows written/day, 7-day Time Travel ([limits](https://developers.cloudflare.com/d1/platform/limits/)) | My table is tiny (a few dozen rows), nowhere near the limits. Data exports as plain SQLite SQL. | 2026-11-12 |
+| GitHub Pages | Platform | GitHub (Microsoft) | GitHub Terms of Service | 1 GB site, soft 100 GB/month bandwidth, soft 10 builds/hour ([limits](https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits)) | Static files only, which is all my page is | 2026-11-12 |
+| GitHub repo + Codespaces | Platform | GitHub (Microsoft) | GitHub ToS | Codespaces on GitHub Free: 120 compute hours and 15 GB-months/month ([billing](https://docs.github.com/en/billing/concepts/product-billing/github-codespaces)) | 120 compute hours is about 60 real hours on a 2-core machine. That's enough, but not unlimited. | 2026-11-12 |
+| Node.js | Local v24.22.1; devcontainer `node:22` | OpenJS Foundation | MIT | Free | Both LTS. EOL: Node 22 on 2027-04-30, Node 24 on 2028-04-30 ([schedule](https://github.com/nodejs/Release)). Both outlast Dec 14. | 2026-11-12 |
+| Gemini `gemini-3.5-flash` | Released 2026-05-19 | Google | Gemini API terms; free-tier content used to improve Google products ([pricing](https://aistudio.google.com/docs/pricing)) | Not used, so $0 | [Deprecations page](https://aistudio.google.com/docs/deprecations): "no longer available in Google AI Studio; the endpoint is not shutting down." Calls get routed to `gemini-3.6-flash`. My Worker never calls it anyway. It's left over from the template. | 2026-11-12 |
+| Cloudflare AI Gateway | Platform | Cloudflare | Cloudflare terms | Core features free; legacy logs capped at 100,000 ([pricing](https://developers.cloudflare.com/ai-gateway/reference/pricing/)) | `AI_GATEWAY_ID` is still the template placeholder. No gateway exists for this project. | 2026-11-12 |
+| bolt.new | Hosted builder | StackBlitz | bolt.new terms | Free: 300K tokens/day, 1M/month. Pro: $25/month ([pricing](https://bolt.new/pricing)) | HW5: 4/4 EARS rows on the first output, but the test script needed a manual fix (EVALS.md error log) | 2026-11-12 |
+| GitHub Copilot | Assistant | GitHub (Microsoft) | GitHub Copilot terms | Free: 2,000 completions/month. Student: free for verified students. Pro: $10/month ([plans](https://docs.github.com/en/copilot/get-started/plans)) | Already installed by the devcontainer | 2026-11-12 |
+| Google AI Studio | Hosted builder | Google | Free tier; content used to improve Google products ([pricing](https://aistudio.google.com/docs/pricing)) | Free | HW5: returned `Request contains an invalid argument` even on a minimal request, and produced no code | 2026-11-12 |
+| Claude Code (Claude Opus 5.5) | CLI agent | Anthropic | Anthropic consumer terms | Needs Pro ($20/month, or $17 billed annually) or higher; not on Free ([pricing](https://claude.com/pricing)) | Used for this audit; logged in DDR-003 | 2026-11-12 |
+| CDN scripts | n/a | n/a | n/a | n/a | None found by grep | 2026-11-12 |
+
+All pages and command output: [audit-evidence/web-sources-2026-11-12.md](audit-evidence/web-sources-2026-11-12.md), [audit-evidence/npm-2026-11-12.txt](audit-evidence/npm-2026-11-12.txt), [audit-evidence/deps-2026-11-12.txt](audit-evidence/deps-2026-11-12.txt).
 
 ### Scores and Rings
+Weighted = (Stability×30 + Pricing×15 + Fit×20 + Exit×35) / 5, so the range is 20 to 100. My rough guide was 80+ Adopt, 65–79 Trial, 50–64 Assess, under 50 Hold, and I overrode it where the reason says so.
+
 | Dependency | Stability | Pricing | Institutional fit | Exit cost | Weighted | Ring | Reason in one line |
 |------------|---|---|---|---|---|---|---|
+| wrangler | 3 | 5 | 5 | 4 | 81 | Adopt | The course standard and officially maintained, but a single publishing account and 18 releases a month is why I pin it (see Changes). |
+| Cloudflare Workers | 4 | 4 | 5 | 3 | 77 | Adopt | The number says Trial because of exit cost, but it's my ADR-001 decision, it's live, and I tested the exit below, so I'm adopting it with an exit plan. |
+| Cloudflare D1 | 4 | 4 | 5 | 3 | 77 | Adopt | Same override as Workers: holds the real data, the export works (tested), and I'm far under every free limit. |
+| GitHub Pages | 5 | 5 | 5 | 5 | 100 | Adopt | Static files on a free host the course uses; any other static host works if it goes away. |
+| GitHub repo + Codespaces | 5 | 4 | 5 | 4 | 90 | Adopt | Required by the course; Codespaces hours are the only limit, and I can develop locally (I'm doing this audit locally). |
+| Node.js | 5 | 5 | 5 | 5 | 100 | Adopt | Both versions I use are LTS until 2027 or later. |
+| Gemini `gemini-3.5-flash` | 1 | 3 | 3 | 5 | 62 | Hold | The number says Assess, but it's already pulled from AI Studio and my product doesn't call any model, so I'm removing it instead of investigating. |
+| Cloudflare AI Gateway | 4 | 5 | 4 | 5 | 90 | Hold | Scores well as a service, but I don't use it. A placeholder I'm not using is just clutter and a fake trust boundary, so I'm removing it. |
+| bolt.new | 3 | 3 | 3 | 4 | 67 | Trial | Worked for F-06, but token limits and the manual fixes it needed mean I use it only behind a DDR and my own tests. |
+| GitHub Copilot | 4 | 4 | 5 | 5 | 91 | Adopt | Free for students, in the devcontainer already, and nothing breaks if I turn it off. |
+| Google AI Studio | 1 | 4 | 3 | 5 | 65 | Hold | It failed outright in HW5 and free-tier content trains Google's models, so I won't use it for more builds. |
+| Claude Code (Opus 5.5) | 4 | 2 | 3 | 5 | 77 | Trial | Useful, but it's a paid subscription and not something the course hands out, so it's used only with a DDR and my own verification. |
+| CDN scripts | n/a | n/a | n/a | n/a | n/a | n/a | There aren't any. Keeping it that way is the point. |
 
 ### Exit Plans (every critical dependency, every Trial)
 | Dependency | Trigger | Substitute | Hours to swap | Tested? (date and how) |
