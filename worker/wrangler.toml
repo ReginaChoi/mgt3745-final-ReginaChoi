@@ -1,6 +1,13 @@
-name = "final-project-worker"
+# Same Worker and D1 database as HW4/HW5 (mgt3745-hw4 / mgt3745-entries), carried forward.
+# Nothing in this file is secret. The database_id is an address, not a key.
+name = "mgt3745-hw4"
 main = "src/index.js"
 compatibility_date = "2026-10-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "mgt3745-entries"
+database_id = "9f08b604-d64c-42a0-94c8-0a3d3e53cd19"
 
 [vars]
 GEMINI_MODEL  = "gemini-3.5-flash"   # check the Gemini deprecations page; record the date in context/TOOLS.md

@@ -5,5 +5,8 @@
   "scripts": {
     "test": "node --test \"evals/**/*.test.js\"",
     "test:proxy": "node --test \"worker/test/*.test.js\""
+  },
+  "devDependencies": {
+    "wrangler": "^4"
   }
 }

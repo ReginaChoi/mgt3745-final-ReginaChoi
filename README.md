@@ -1,27 +1,29 @@
-# <Project Name>
+# SkillPath
 
-> Replace every line in angle brackets. A README that still carries template placeholders loses points.
+**One sentence:** SkillPath helps accounting students and recent graduates see which skills their target career path (audit, forensic accounting, IRS/government) needs and attach real evidence from coursework or internships, so they leave school with something concrete to show an employer.
 
-**One sentence:** <what this product does, for whom, and the change it exists to cause>
+**Deployed:**
+- Worker API (Cloudflare): https://mgt3745-hw4.rchoi47.workers.dev/entries
+- Page (GitHub Pages): not live yet, planned for the Module 12 deployment
 
-**Deployed:** <https URL of the live product>  
-**Status:** <working / partly working / blocked, with one sentence on what is incomplete>  
-**Hours spent:** <running total>
+**Status:** partly working. The evidence log (F-03) and export (F-06) work against the deployed Worker and D1, and `npm test` passes 4/4. The page isn't on GitHub Pages yet, and the Worker's CORS origin still points at the old Codespace URL.
+
+**Hours spent:** see [docs/DDR-LOG.md](docs/DDR-LOG.md) for delegated hours; running total to be added.
 
 ## See It Work
 
-![The product in use](docs/img/see-it-work.gif)
+![The product in use](context/image-1.png)
 
 ## Who It Is For
 
-<One paragraph from context/USERS.md: the person, the job, and why today's alternatives fall short.>
+An accounting student or recent graduate aiming at audit, forensic accounting, or a government role. INT-03 (a 2025 accounting graduate, currently unemployed) never figured out which skills her target career needed and graduated with no internship to point to. Career-center lists and generic advice don't connect a specific path to specific skills, and nothing she had tied coursework to evidence an employer can see. Full profiles are in [context/USERS.md](context/USERS.md).
 
 ## Run It
 
 ```bash
 npm install
-npm test                 # code evals in evals/
-npx wrangler dev         # only if the project has a worker/ backend
+npm test                 # code evals in evals/, run against the deployed Worker (set API=... to use another)
+cd worker && npx wrangler dev
 ```
 
 ## The Record
@@ -42,4 +44,4 @@ npx wrangler dev         # only if the project has a worker/ backend
 
 ## AI Use
 
-<Which tools wrote what, in two or three sentences. The detail lives in docs/DDR-LOG.md; this paragraph orients a stranger.>
+bolt.new generated the first version of F-06 (the export) in HW5, and I reviewed and fixed it before keeping it. Google AI Studio was tried for the same feature but errored before producing code. The details and verification are in [docs/DDR-LOG.md](docs/DDR-LOG.md).

@@ -1,5 +1,53 @@
 <!doctype html>
 <html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Project name</title></head>
-<body><main><h1>Project name</h1><p>Replace this page with your product. GitHub Pages serves it from the repository root.</p></main></body>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Skill evidence log | MGT 3745</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+  <meta property="og:image" content="https://bolt.new/static/og_default.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://bolt.new/static/og_default.png">
+</head>
+<body>
+  <main>
+    <h1>Skill evidence log</h1>
+    <p>Pick the accounting career you are aiming at, then attach evidence to the skills it needs. When you are ready, export a summary for your resume or portfolio.</p>
+ 
+    <label for="path-select">Career path</label>
+    <select id="path-select" name="path"></select>
+ 
+    <h2>Skills for this path</h2>
+    <ul id="skill-list" aria-label="Skills for the selected career path"></ul>
+ 
+    <h2>Attach evidence</h2>
+    <form id="evidence-form" novalidate>
+      <label for="skill-select">Skill</label>
+      <select id="skill-select" name="skill" aria-describedby="evidence-error"></select>
+ 
+      <label for="evidence-input">What you did</label>
+      <p id="evidence-help">A class, project, or internship task that shows this skill. 1–200 characters.</p>
+      <input id="evidence-input" name="evidence" type="text" autocomplete="off"
+             aria-describedby="evidence-help evidence-error">
+ 
+      <button type="submit">Save evidence</button>
+      <p id="evidence-error" role="alert"></p>
+    </form>
+ 
+    <p id="save-status" role="status" aria-live="polite"></p>
+
+    <h2>Export skill summary</h2>
+    <p id="export-help">Generate a text summary of your career path, skills, and evidence that you can copy into a resume or portfolio.</p>
+    <button id="export-btn" type="button">Export summary</button>
+    <p id="export-error" role="alert"></p>
+    <div id="export-output" hidden>
+      <label for="summary-text">Skill summary</label>
+      <textarea id="summary-text" readonly rows="12"></textarea>
+      <button id="copy-btn" type="button">Copy to clipboard</button>
+      <p id="copy-status" role="status" aria-live="polite"></p>
+    </div>
+  </main>
+</body>
 </html>
+ 

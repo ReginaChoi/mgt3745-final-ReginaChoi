@@ -1,7 +1,22 @@
 # SKILLS.md
 
-Three to five skills you actually used on this project, each with the situation that called for it and the file that shows it.
+Reusable patterns and delegation guidance, written so an agent (or a
+stranger) could apply them next time. Each entry under fifteen lines.
+Load-on-demand: an agent reads the heading first and the body only when relevant.
 
-| Skill | When it was needed | Evidence |
-|---|---|---|
-| <skill> | <situation> | <file or PR> |
+## Pattern: fetch with the failure shown on the page
+**When:** any call from app.js to the Worker.
+**Do:** check `res.ok`; on failure, read `res.text()` and put it in the
+status element with `textContent`; wrap the call in try/catch for network
+errors; never throw to the console.
+**Because:** localStorage never failed; the network does (ADR-002).
+
+## Delegation guidance: what to paste, what to check first
+**Paste, in order:** PROJECT, FEATURES (rows marked), STYLE, STANDARDS, TOOLS, then the current page files. One instruction line naming the files it may touch.
+**Check first:** the diff's file list, then innerHTML / concatenated SQL, then whether it used the tokens.
+**Reliably wrong (this week):** *fill from your error-analysis log*
+
+## Pattern: verify delegated builds before accepting them
+**When:** an AI tool generates a feature for an existing project.
+**Do:** preserve the original output first; inspect the diff, dependencies, storage, security-sensitive patterns, and design tokens; then run the feature's EARS checks and automated tests.
+**Because:** generated code can satisfy the visible feature while still changing architecture, adding dependencies, or violating project standards.
