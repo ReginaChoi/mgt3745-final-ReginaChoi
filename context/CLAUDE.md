@@ -6,7 +6,7 @@ Always-on instructions for any agent working in this repository. Read STANDARDS.
 
 PROJECT.md, FEATURES.md, ARCHITECTURE.md, STANDARDS.md, TOOLS.md, STYLE.md.
 
-Do not read /curiosity unless asked.
+context/curiosity/ was not carried forward from HW5, so there is nothing to skip.
 
 ## Rules
 
@@ -14,7 +14,7 @@ Do not read /curiosity unless asked.
 - Never build SQL by concatenating strings. Use `prepare(...).bind(...)`.
 - Never write a credential, token, or key into any file in this repository. A database id is not a credential and may appear in wrangler.toml.
 - Never add a dependency without adding a row to TOOLS.md.
-- Every new endpoint implements an EARS statement in FEATURES.md. Quote it in a comment, the way worker.js quotes AC-8 for its evidence-length check.
+- Every new endpoint implements an EARS statement in FEATURES.md. Quote it in a comment, the way worker/src/index.js quotes AC-8 for its evidence-length check.
 - Handle failed responses on the page. Never throw only to the console.
 - Wrap application code in an immediately-invoked function; do not add anything to the global scope.
 - Prefer the boring choice. Name any innovation token you spend in an ADR.

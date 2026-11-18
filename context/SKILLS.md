@@ -14,7 +14,7 @@ errors; never throw to the console.
 ## Delegation guidance: what to paste, what to check first
 **Paste, in order:** PROJECT, FEATURES (rows marked), STYLE, STANDARDS, TOOLS, then the current page files. One instruction line naming the files it may touch.
 **Check first:** the diff's file list, then innerHTML / concatenated SQL, then whether it used the tokens.
-**Reliably wrong (this week):** *fill from your error-analysis log*
+**Reliably wrong (from the error logs, HW5 and HW6):** AI builders add things I did not ask for (AI Studio built an Express server, JSON-file storage, and an unused `@google/genai` in HW6); test scripts that point at the wrong file (bolt.new, HW5); and template config the code never reads (Gemini vars, found in the Sourcing Audit).
 
 ## Pattern: verify delegated builds before accepting them
 **When:** an AI tool generates a feature for an existing project.

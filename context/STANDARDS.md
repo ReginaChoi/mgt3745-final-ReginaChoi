@@ -13,7 +13,7 @@ These are the rules this project's code is required to follow.
 
 ## Added for HW4
 
-7. **No string-concatenated SQL.** User values reach SQL through `bind()`, never by being pasted into the query string. worker.js has one INSERT statement; it uses `prepare(...).bind(...)` for every value that came from a request, with no exception.
+7. **No string-concatenated SQL.** User values reach SQL through `bind()`, never by being pasted into the query string. worker/src/index.js has one INSERT statement; it uses `prepare(...).bind(...)` for every value that came from a request, with no exception.
 8. **No credential in the repository.** Not in code, not in config, not in a context file. A database id is an address and is allowed in `wrangler.toml`; a login token, API key, or password is not allowed anywhere in this repository, including in a commit message or a screenshot.
 9. **Failed requests are shown, never thrown.** If a `fetch` call fails or the server responds with anything other than 2xx, the page shows a message where the student can see it. Nothing is left only in the browser console.
 

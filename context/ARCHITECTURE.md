@@ -1,6 +1,43 @@
 # Architecture
 
-Decisions, in order. An ADR is never edited after it is accepted; it is superseded.
+## Current system (final project, 2026-11-12)
+
+The final project's decision record is [docs/ADR-001.md](../docs/ADR-001.md). The HW3 and HW4 ADRs further down this file are kept as history. They're labeled "HW3 ADR-001" and "HW4 ADR-002" so they don't get confused with docs/ADR-001.
+
+```mermaid
+flowchart LR
+  S[Student's browser<br/>index.html, app.js, styles.css] -- "GET /entries (read all evidence)" --> W
+  S -- "POST /entries {pathId, skillName, evidenceText}" --> W
+  W[Cloudflare Worker<br/>mgt3745-hw4, worker/src/index.js] -- "prepare().bind() INSERT / SELECT" --> D[(Cloudflare D1<br/>mgt3745-entries, table evidence)]
+  W -- "JSON rows / 201 / 400 with reason" --> S
+  P[GitHub Pages<br/>static files] -- "serves page (planned, Module 12)" --> S
+  Dev[Me: wrangler 4.160.1<br/>with my Cloudflare login] -- "deploy, d1 export" --> W
+  Dev --> D
+```
+
+### Trust Boundary
+
+| Crossing | What crosses | Direction | Who controls the far side |
+|---|---|---|---|
+| Browser → Worker | The path ID, skill name, and evidence text a student types (1 to 200 chars, checked again on the server, AC-8) | Out of the student's device | Cloudflare, under free-tier terms; request IP and timestamp are logged by default |
+| Worker → D1 | The same three fields, stored with a timestamp | Within Cloudflare | Cloudflare stores it; I administer it |
+| Worker → Browser | **Every** evidence row in the table, not just the current student's | Back to any visitor | Anyone with the URL can read it. That's why the PROJECT.md guardrail bans names, IDs, and grades in evidence |
+| My machine → Cloudflare | Code deploys and database exports through wrangler | Out | My Cloudflare login token, stored in my user config, never in the repo |
+| Repo → AI builders | Spec and context files I paste (bolt.new, AI Studio) or the repo itself (Copilot, Claude Code) | Out | Each vendor's terms; see context/TOOLS.md. No student data or credentials go to them |
+
+### Instruction or structure?
+
+| Control | Kind | Where |
+|---|---|---|
+| SQL values go through `bind()` | Structure (the only INSERT uses it) and instruction (CLAUDE.md, STANDARDS 7) | worker/src/index.js |
+| Evidence length 1 to 200 characters | Structure: the Worker returns 400 even if the page is bypassed | worker/src/index.js (AC-8) |
+| User text rendered with `textContent` | Instruction only (STANDARDS 5, CLAUDE.md); nothing stops a new `innerHTML` except review | app.js |
+| No personal data in evidence | Instruction only, and so far only in PROJECT.md. The page doesn't warn users yet; add a note next to the evidence box before Module 12 | PROJECT.md guardrail |
+| Builders can't change the backend without me | Structure: only my wrangler login can deploy; builders only see what I paste | TOOLS.md |
+
+---
+
+Earlier decisions, in order. An ADR is never edited after it is accepted; it is superseded.
 
 ## The Gate: HW4 rerun
 
@@ -26,7 +63,7 @@ Notes on a few scores. Build's time-to-working is only a 3, not a 5, because Ses
 
 Build still wins clearly, and by a wider margin than in HW3, because the switching-cost weight increase rewards the option that gave me the most control the last time I actually had to move something.
 
-## ADR-002: Entries move from localStorage to Cloudflare D1
+## HW4 ADR-002: Entries move from localStorage to Cloudflare D1
 
 **Title and date:** ADR-002: Move evidence-log entries from browser localStorage to a Cloudflare Worker with D1. 9/24/2026
 
@@ -52,7 +89,7 @@ Harder, and what this still does not fix: there is no per-user separation in the
 
 ---
 
-## ADR-001: Store entries in localStorage
+## HW3 ADR-001: Store entries in localStorage
 
 **Status:** Superseded by ADR-002
 

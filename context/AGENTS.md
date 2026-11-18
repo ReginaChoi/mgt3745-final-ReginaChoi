@@ -2,7 +2,7 @@
 
 ## Setup
 npm install
-npx wrangler dev   (only if worker/ is used)
+cd worker && npx wrangler dev
 
 ## Test
 npm test runs node:test over evals/. All tests must pass before a pull request.
