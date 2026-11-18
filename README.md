@@ -26,6 +26,16 @@ npm test                 # code evals in evals/, run against the deployed Worker
 cd worker && npx wrangler dev
 ```
 
+## Rollback Runbook
+
+Status as of 2026-11-17: **written, not yet tried.** The data half was tested once: on 2026-11-12 a D1 export was restored locally with 12/12 rows (docs/DDR-003.md). A Worker rollback hasn't been run yet; I'll run it once before the first user session and add a dated note to docs/AUDIT.md.
+
+1. **Back up the data first:** `cd worker && npx wrangler d1 export mgt3745-entries --remote --output=backup.sql` (backup.sql is git-ignored).
+2. **Roll the Worker back:** `npx wrangler deployments list`, then `npx wrangler rollback <version-id>` for the last good version.
+3. **Roll the page back:** `git revert <bad-commit>` and push to `main`; GitHub Pages redeploys from it.
+4. **Remove a bad write:** `npx wrangler d1 execute mgt3745-entries --remote --command "DELETE FROM evidence WHERE id = <id>"`, or rebuild the table from backup.sql.
+5. **Check:** `npm test` passes 4/4 against the deployed Worker, and `GET /entries` matches the export.
+
 ## The Record
 
 Milestone check-in items 1 to 8 are numbered in the first column.
@@ -38,7 +48,7 @@ Milestone check-in items 1 to 8 are numbered in the first column.
 | 4 | ADR-001 (Gate with weights) | [docs/ADR-001.md](docs/ADR-001.md) |
 | 4 | Architecture diagram and Trust Boundary | [context/ARCHITECTURE.md](context/ARCHITECTURE.md) |
 | 5 | RAT and Prediction Stake | [context/EVALS.md](context/EVALS.md) |
-| 6 | First DDR (bolt.new, F-06) and the delegation log | [docs/DDR-001.md](docs/DDR-001.md), [docs/DDR-LOG.md](docs/DDR-LOG.md) |
+| 6 | First DDR (bolt.new, F-06) and the delegation log | [docs/DDR-001.md](docs/DDR-001.md) (2026-10-01), [docs/DDR-LOG.md](docs/DDR-LOG.md) |
 | 7 | Context Scaffold Audit 1 | [docs/AUDIT.md](docs/AUDIT.md) |
 | 8 | Sourcing Audit (HW7) and the tools ledger | [docs/SOURCING-AUDIT.md](docs/SOURCING-AUDIT.md), [context/TOOLS.md](context/TOOLS.md) |
 | | Decision memo (criteria due before deployment, Nov 19) | [docs/DECISION-001.md](docs/DECISION-001.md) |
