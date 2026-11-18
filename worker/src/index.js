@@ -12,9 +12,10 @@
 // CORS headers    tell the browser the page is allowed to call this Worker
 // Session B leaves this at "*" so everyone's page works on the first try.
 // Craft credit for HW4 is replacing "*" with the page's real origin once deployed.
+// Module 12 (2026-11-17): the origin is the GitHub Pages site (docs/DEPLOY.md).
 
 const CORS = {
-  "access-control-allow-origin": "https://super-pancake-jrq4j6xq5ggvc5qpp-5501.app.github.dev",
+  "access-control-allow-origin": "https://reginachoi.github.io",
   "access-control-allow-methods": "GET, POST, OPTIONS",
   "access-control-allow-headers": "content-type",
 };

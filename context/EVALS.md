@@ -18,6 +18,7 @@ Copied from the PROJECT.md success measures so the stop number sits next to the 
 - **Metric:** entries in the D1 export that contain a real name, email, student ID, or grade; and saves the page shows as "Evidenced" that are missing from `GET /entries`.
 - **Stop number:** 1. A single violation of either stops user sessions until it is fixed and a dated note is added to docs/AUDIT.md.
 - **Checked:** after every user session, from `npx wrangler d1 export` (run in worker/).
+- **Rerunnable:** `node evals/queries/guardrail-personal-data.js` flags rows for me to read; `node evals/queries/evidence-in-window.js` measures the leading indicator for docs/DECISION-001.md.
 
 ## Code evals
 | Row | Test file | Result | Date |

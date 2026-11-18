@@ -4,9 +4,9 @@
 
 **Deployed:**
 - Worker API (Cloudflare): https://mgt3745-hw4.rchoi47.workers.dev/entries
-- Page (GitHub Pages): not live yet, planned for the Module 12 deployment
+- Page (GitHub Pages): https://reginachoi.github.io/mgt3745-final-ReginaChoi/ (deployed 2026-11-17, [docs/DEPLOY.md](docs/DEPLOY.md))
 
-**Status:** partly working. The evidence log (F-03) and export (F-06) work against the deployed Worker and D1, and `npm test` passes 4/4. The page isn't on GitHub Pages yet, and the Worker's CORS origin still points at the old Codespace URL.
+**Status:** deployed, waiting on real users. The skill list (F-01), evidence log (F-03) and export (F-06) run on GitHub Pages against the deployed Worker and D1, and `npm test` passes 4/4. The Worker's CORS origin is the Pages site. No real-user sessions are recorded yet (docs/FEEDBACK.md).
 
 **Hours spent:** 31.25 recorded so far: HW3 14 (mgt3745-hw3 README), HW4 12 (mgt3745-hw4 README), HW5 5.25 (tool run plus review and fixes, [docs/DDR-001.md](docs/DDR-001.md)). HW1, HW2 and HW7 weren't tracked, so the real total is higher.
 
@@ -51,9 +51,10 @@ Milestone check-in items 1 to 8 are numbered in the first column.
 | 6 | First DDR (bolt.new, F-06) and the delegation log | [docs/DDR-001.md](docs/DDR-001.md) (2026-10-01), [docs/DDR-LOG.md](docs/DDR-LOG.md) |
 | 7 | Context Scaffold Audit 1 | [docs/AUDIT.md](docs/AUDIT.md) |
 | 8 | Sourcing Audit (HW7) and the tools ledger | [docs/SOURCING-AUDIT.md](docs/SOURCING-AUDIT.md), [context/TOOLS.md](context/TOOLS.md) |
-| | Decision memo (criteria due before deployment, Nov 19) | [docs/DECISION-001.md](docs/DECISION-001.md) |
+| | Decision memo (criteria committed 2026-11-17, before deployment) | [docs/DECISION-001.md](docs/DECISION-001.md) |
 | | Real-user feedback (Nov 19) | [docs/FEEDBACK.md](docs/FEEDBACK.md) |
 | | Deployment notes | [docs/DEPLOY.md](docs/DEPLOY.md) |
+| | Decision-metric queries | [evals/queries/](evals/queries/README.md) |
 | | Self-review with Homogenization Check (Dec 14) | [docs/SELF-REVIEW.md](docs/SELF-REVIEW.md) |
 
 **Dating note.** The final-project RAT and Prediction Stake in context/EVALS.md were first committed on 2026-11-12. That's after F-01, F-03 and F-06 were built (HW3 to HW5, carried in by commit `3ca78d7`) but before the deployment build and the real-user sessions they predict. The HW5 Stake for the F-06 delegation was committed before that build (2026-10-01 in the HW5 repo).
