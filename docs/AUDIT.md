@@ -25,6 +25,7 @@ How it was run: facts gathered with `.github/prompts/audit.prompt.md` (last-chan
 
 ### Changes made
 - 2026-11-12: everything marked #1 above, in PR #1 (branch `checkin/nov12`). `npm test` 4/4 before and after.
+- 2026-11-17: PR #1 merged into `main` (merge commit `729a4a5`, original commit dates kept). Follow-up fixes in PR #2: DDR-001 date and crossing, EVALS.md guardrail, README rollback runbook (docs/DDR-005.md).
 - Not changed in this audit: styles.css color drift (planned before Dec 3), and USERS.md (waits on real users).
 
 ## Audit 2: <YYYY-MM-DD> (final-iteration window, December 9 to 14)

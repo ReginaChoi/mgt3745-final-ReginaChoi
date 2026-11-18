@@ -13,6 +13,12 @@ Test: the first 3 real users, observed in the Module 12 sessions. Confirmed if a
 - **Loose:** Users will spend more of their session reading and switching between skill lists (F-01) than typing evidence (F-03), because seeing the skills is what INT-03 said she'd use. Resolves from my timed observation notes in docs/FEEDBACK.md.
 - **Open:** What do real users type as evidence: course names, projects, jobs, or nothing? Resolves from the D1 export after 3 sessions.
 
+## Guardrail (stop rule for the Module 12 deployment)
+Copied from the PROJECT.md success measures so the stop number sits next to the evals that check it.
+- **Metric:** entries in the D1 export that contain a real name, email, student ID, or grade; and saves the page shows as "Evidenced" that are missing from `GET /entries`.
+- **Stop number:** 1. A single violation of either stops user sessions until it is fixed and a dated note is added to docs/AUDIT.md.
+- **Checked:** after every user session, from `npx wrangler d1 export` (run in worker/).
+
 ## Code evals
 | Row | Test file | Result | Date |
 |---|---|---|---|
