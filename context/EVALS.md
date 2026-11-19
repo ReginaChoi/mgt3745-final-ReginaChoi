@@ -10,8 +10,11 @@ Test: the first 3 real users, observed in the Module 12 sessions. Confirmed if a
 ## Prediction Stake (committed before the deployment build and the first user session)
 <!-- Never edit the prediction text; add resolutions below it. -->
 - **Tight:** Fewer than 2 of the first 3 real users will save a piece of evidence within 5 minutes of opening the page without help. (I'm betting against my own leading-indicator target, because of how lukewarm INT-03 was: "Yes, because hopefully I'd get a job.")
+  - Resolved 2026-11-19: **correct.** 0 of 3 saved within 5 minutes (6 min 25 s, 12 min 12 s, at least 6 min 47 s; docs/audit-evidence/leading-indicator-2026-11-19.txt).
 - **Loose:** Users will spend more of their session reading and switching between skill lists (F-01) than typing evidence (F-03), because seeing the skills is what INT-03 said she'd use. Resolves from my timed observation notes in docs/FEEDBACK.md.
+  - Resolved 2026-11-19: **not supported.** Where my notes have the times, typing took as long as or longer than reading: session 1 read for about 2 minutes (10:01 to 10:03) and typed for 3; session 3 typed for about 6 (8:59 to 9:05). Session 2's start time wasn't noted, but her comments are about the text box, not the skill list. Nobody was noted switching paths.
 - **Open:** What do real users type as evidence: course names, projects, jobs, or nothing? Resolves from the D1 export after 3 sessions.
+  - Resolved 2026-11-19 (D1 rows 31 to 34): one project ("Building DCF model for equity research..."), one set of classes with no course named ("Took advanced level accounting classes..."), and one job ("At my auditing firm I presented... our findings"). Nobody typed nothing, and nobody named a specific course.
 
 ## Guardrail (stop rule for the Module 12 deployment)
 Copied from the PROJECT.md success measures so the stop number sits next to the evals that check it.
@@ -27,14 +30,20 @@ Copied from the PROJECT.md success measures so the stop number sits next to the 
 | F-03 AC-8 / AC-3 (POST {} rejected with 400 and a reason) | evals/worker.test.js | Pass | 2026-11-12 |
 | F-03 AC-2 (valid POST is stored and shows up in GET) | evals/worker.test.js | Pass | 2026-11-12 |
 | F-06 AC-10 (saved evidence is available to the export) | evals/worker.test.js | Pass | 2026-11-12 |
+| F-03 AC-6 (other visitors' evidence and test rows aren't shown as mine) | evals/page.test.js (offline) | Pass | 2026-11-19 |
+| F-03 AC-15 + AC-16 (save confirmation shows the text; progress counts it) | evals/page.test.js (offline) | Pass | 2026-11-19 |
+| F-03 AC-16 ("Done" when every skill on the path has evidence) | evals/page.test.js (offline) | Pass | 2026-11-19 |
+| F-03 AC-13 (two quick submits send one POST) | evals/page.test.js (offline) | Pass | 2026-11-19 |
+| Guardrail (a save missing from GET /entries isn't shown as Evidenced) | evals/page.test.js (offline) | Pass | 2026-11-19 |
+| F-03 AC-14 (box grows; count out of 200) | evals/page.test.js (offline) | Pass | 2026-11-19 |
 
-`npm test`: tests 4, pass 4, fail 0 (against https://mgt3745-hw4.rchoi47.workers.dev).
+The page evals load app.js into a small fake DOM with a fake fetch, so they never write to D1. Against the pre-2026-11-19 app.js, 5 of the 6 fail (the guardrail test passes there only because the old page didn't remember saves at all). `npm test` on 2026-11-19 (after the page fixes, outside any session window): tests 10, pass 10, fail 0.
 
 ## Judgment evals
 | Item | Grader 1 | Grader 2 | Agree? |
 |---|---|---|---|
 | F-06 AC-11 and AC-12 messages, 12 questions (HW5, [mgt3745-hw5 docs/JUDGMENT.md](https://github.com/ReginaChoi/mgt3745-hw5/blob/main/docs/JUDGMENT.md)) | Me | Second grader (HW5) | 12 of 12 |
-| Real-user sessions (Module 12) | Me | to be named before the sessions | pending |
+| Real-user sessions (Module 12): is each saved row real, specific evidence for its skill? (rubric in docs/JUDGMENT-SESSIONS.md) | Me | a classmate, to be named; not Claude, which built the fixes | pending |
 
 ## Error log (most frequent first)
 | Failure | Frequency | First seen | Fixed in |
@@ -42,12 +51,19 @@ Copied from the PROJECT.md success measures so the stop number sits next to the 
 | AI Studio returned "Request contains an invalid argument" with no output | 1 | 2026-10-01 (HW5) | Not fixable on my side; AI Studio is Trial now (SOURCING-AUDIT.md) |
 | bolt.new's npm test script didn't target the test file | 1 | 2026-10-01 (HW5) | Fixed by hand in HW5 |
 | `npm test` threw if `API` wasn't set | 1 | 2026-11-12 | Defaults to the deployed Worker (commit 3ca78d7) |
+| Page showed every visitor's evidence (and test rows) as the student's own (AC-6) | seen in all 3 sessions | 2026-11-18 (production) | ADR-002, 2026-11-19 |
+| A slow save took 12 minutes, partly the one-line box and an unclear save (S2-1, S2-2) | 1 | 2026-11-18 | AC-14, AC-15, 2026-11-19 |
+| One save written twice (D1 rows 32 and 33) | 1 | 2026-11-18 | AC-13, 2026-11-19 |
 
 ## RAT verdict
 Untested as of 2026-11-12. Resolved here after the first 3 user sessions; the RAT above stays unchanged.
 
+**2026-11-19: confirmed, weakly.** The test was "at least 2 of 3 save evidence unprompted": 3 of 3 did, with no help, on the deployed page (D1 rows 31, 32/33 and 34; docs/FEEDBACK.md). So students who see the skills will attach evidence on their own. What the RAT didn't test, and the sessions showed: it was slow (0 of 3 within 5 minutes), one entry is vague ("advanced level accounting classes"), every user saved only one skill, and nobody would be very disappointed to lose the tool (0 very, 1 somewhat, 2 not). The assumption holds; the product doesn't yet make it worth doing. Written by Claude Code from the raw rows and notes (docs/DDR-010.md).
+
 ## Production verdict
 After Module 12: what real users did against the outcome, leading indicator, and guardrail in context/PROJECT.md.
+
+**Interim, 2026-11-19 (n = 3, before the AC-14 to AC-16 fixes):** outcome 0 of 3 (each user ended with 1 skill Evidenced; the target is 3 or more for at least 2 of 3); leading indicator 0 of 3 (target at least 2 of 3); guardrail held (0 personal-data rows, 0 lost saves). Against the targets in context/PROJECT.md, that's a miss on both outcome and leading indicator. The final production verdict waits for at least 2 more users on the new version (docs/DECISION-001.md) and is mine to write in the Dec 9 to 14 window.
 
 ---
 

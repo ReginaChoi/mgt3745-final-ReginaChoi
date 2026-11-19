@@ -5,6 +5,7 @@
   --color-text: #172b40;
   --color-error: #922020;
   --color-focus: #b16d00;
+  --color-success: #1d5b32;
   --font-body: Arial, Helvetica, sans-serif;
   --font-heading: Arial, Helvetica, sans-serif;
   --space-unit: 0.75rem;
@@ -18,7 +19,8 @@ p { line-height: 1.5; }
 label { display: block; font-weight: 700; margin-top: 1rem; }
 
 select,
-input {
+input,
+#evidence-input {
   box-sizing: border-box;
   display: block;
   width: 100%;
@@ -44,8 +46,26 @@ button:focus-visible,
 input:focus-visible,
 select:focus-visible { outline: 3px solid #b16d00; outline-offset: 3px; }
 
-input[aria-invalid="true"] { border: 2px solid #a02020; }
+input[aria-invalid="true"],
+textarea[aria-invalid="true"] { border: 2px solid #a02020; }
 #evidence-error { color: #922020; }
+
+/* AC-14: the box grows with the text (app.js sets the height), so nothing scrolls out of view. */
+#evidence-input { line-height: 1.5; min-height: 5.5rem; resize: none; overflow: hidden; }
+textarea:focus-visible { outline: 3px solid #b16d00; outline-offset: 3px; }
+#evidence-count { margin: 0.25rem 0 0; font-size: 0.9rem; color: #5a6775; }
+
+/* AC-15 and AC-16: a confirmation and a progress line, in the success green, never the error red. */
+#save-status[data-state="saved"]:not(:empty),
+#path-progress {
+  margin: 0.5rem 0;
+  padding: 0.75rem;
+  border-left: 4px solid var(--color-success);
+  background: #eef5f0;
+  overflow-wrap: anywhere;
+}
+#path-progress[data-state="in-progress"] { border-left-color: #526578; background: #eef2f6; }
+#path-progress[hidden] { display: none; }
 
 #skill-list { padding: 0; list-style: none; }
 
