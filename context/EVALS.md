@@ -43,7 +43,7 @@ The page evals load app.js into a small fake DOM with a fake fetch, so they neve
 | Item | Grader 1 | Grader 2 | Agree? |
 |---|---|---|---|
 | F-06 AC-11 and AC-12 messages, 12 questions (HW5, [mgt3745-hw5 docs/JUDGMENT.md](https://github.com/ReginaChoi/mgt3745-hw5/blob/main/docs/JUDGMENT.md)) | Me | Second grader (HW5) | 12 of 12 |
-| Real-user sessions (Module 12): is each saved row real, specific evidence for its skill? (rubric in docs/JUDGMENT-SESSIONS.md) | Me | a classmate, to be named; not Claude, which built the fixes | pending |
+| Real-user sessions (Module 12): is each saved row real, specific evidence for its skill? (rubric in docs/JUDGMENT-SESSIONS.md) | Me | ChatGPT (DDR-012); not Claude, which built the fixes | 11 of 12 (row 32 Specific: I said yes, ChatGPT no). My answers weren't committed before ChatGPT ran |
 
 ## Error log (most frequent first)
 | Failure | Frequency | First seen | Fixed in |

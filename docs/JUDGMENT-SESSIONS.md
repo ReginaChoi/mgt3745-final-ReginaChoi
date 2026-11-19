@@ -3,8 +3,9 @@
 Two graders score each real saved row on its own, then compare. Grader 2 sees only this sheet and the raw rows below, never my notes or verdicts (course rule: a judge sees the raw data, not my summary). Claude Code wrote this sheet ([DDR-010](DDR-010.md)) and built the fixes, so it is not a grader.
 
 - **Grader 1:** Regina Choi
-- **Grader 2:** ChatGPT (OpenAI), _model_, one prompt, see [DDR-012](DDR-012.md). A person would be stronger; no second person was available. Grader 1 answers are committed before Grader 2 runs.
-- **Date graded:** _YYYY-MM-DD_
+- **Grader 2:** ChatGPT (OpenAI), model: _fill in_, one prompt with no follow-ups, see [DDR-012](DDR-012.md). A person would be stronger; no second person was available.
+- **Date graded:** 2026-11-19
+- **Order (as it actually happened):** DDR-012 planned to commit my answers before ChatGPT ran, but they weren't committed first. Both sets reached the repo together in this commit, so the history can't show my answers were independent. _Add one line: did I grade before reading ChatGPT's answers?_
 
 ## The rows (raw, from `GET /entries`; row 33 is a duplicate of 32 and isn't graded)
 
@@ -23,17 +24,17 @@ Two graders score each real saved row on its own, then compare. Grader 2 sees on
 
 | Row | Q | Grader 1 | Grader 2 | Agree? |
 |---|---|---|---|---|
-| 31 | 1 Real | | | |
-| 31 | 2 Specific | | | |
-| 31 | 3 Fits the skill | | | |
-| 31 | 4 Safe | | | |
-| 32 | 1 Real | | | |
-| 32 | 2 Specific | | | |
-| 32 | 3 Fits the skill | | | |
-| 32 | 4 Safe | | | |
-| 34 | 1 Real | | | |
-| 34 | 2 Specific | | | |
-| 34 | 3 Fits the skill | | | |
-| 34 | 4 Safe | | | |
+| 31 | 1 Real | Yes ("yes its real") | Yes: Describes completing a DCF model for equity research. | Yes |
+| 31 | 2 Specific | Yes ("yeah i think so") | Yes: Identifies a DCF modeling task and the financial statements used. | Yes |
+| 31 | 3 Fits the skill | Yes ("yes it shows") | Yes: Shows reviewing financial statements and checking financial information for accuracy. | Yes |
+| 31 | 4 Safe | Yes ("yes") | Yes: Contains no names, emails, student IDs, or grades. | Yes |
+| 32 | 1 Real | Yes ("yes real") | Yes: Describes taking advanced accounting classes. | Yes |
+| 32 | 2 Specific | Yes ("yes the interviewer can somewhat follow up") | No: Does not identify a particular course, assignment, or evaluation task. | **No** |
+| 32 | 3 Fits the skill | Yes ("it shows") | Yes: Describes evaluating an entity's financial standing through observation. | Yes |
+| 32 | 4 Safe | Yes ("yes") | Yes: Contains no names, emails, student IDs, or grades. | Yes |
+| 34 | 1 Real | Yes ("yes the person actually did") | Yes: Describes presenting findings at an auditing firm. | Yes |
+| 34 | 2 Specific | Yes ("i think the interviewer could follow up by asking more so yeah") | Yes: Identifies an auditing firm setting and presenting financial discrepancies. | Yes |
+| 34 | 3 Fits the skill | Yes ("it shows") | Yes: Shows communicating audit findings and discrepancies to others. | Yes |
+| 34 | 4 Safe | Yes ("yes") | Yes: Contains no names, emails, student IDs, or grades. | Yes |
 
-**Agreement:** _n of 12_. Where we disagree, one line on why. Record the result in context/EVALS.md, Judgment evals.
+**Agreement: 11 of 12.** The one disagreement is row 32, Specific. I said yes, that an interviewer "can somewhat follow up"; ChatGPT said no, because it names no course, assignment or task. Both readings see the same gap: row 32 is the vaguest entry, the kind of evidence DECISION-001's held-back alternative (an example under each skill) is meant to improve. Grader 1 answers are as I wrote them; Grader 2's are ChatGPT's reply word for word. Result recorded in context/EVALS.md.
