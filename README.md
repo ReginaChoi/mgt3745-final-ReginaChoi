@@ -8,7 +8,7 @@
 
 **Status:** deployed; three real users observed on 2026-11-18 ([docs/FEEDBACK.md](docs/FEEDBACK.md)); iterating. 3 of 3 saved evidence with no help, but 0 of 3 within 5 minutes, so [DECISION-001](docs/DECISION-001.md) is resolved as iterate. On 2026-11-19 I shipped session 2's fixes (an evidence box that grows, a save confirmation, a progress line) and fixed AC-6: the page had been showing every visitor's evidence as the student's own ([ADR-002](docs/ADR-002.md)). `npm test` passes 10/10. Next: at least 2 more users on the new version, then the production verdict.
 
-**Hours spent:** 33.85 recorded so far: final project 2.6 (my own time, not counting Claude Code's; agent time is in each DDR), HW3 14 (mgt3745-hw3 README), HW4 12 (mgt3745-hw4 README), HW5 5.25 (tool run plus review and fixes, [docs/DDR-001.md](docs/DDR-001.md)). HW1, HW2 and HW7 weren't tracked, so the real total is higher.
+**Hours spent:** 40.65 recorded so far: final project 9.4 (my own time, not counting Claude Code's; agent time is in each DDR), HW3 14 (mgt3745-hw3 README), HW4 12 (mgt3745-hw4 README), HW5 5.25 (tool run plus review and fixes, [docs/DDR-001.md](docs/DDR-001.md)). HW1, HW2 and HW7 weren't tracked, so the real total is higher.
 
 ## See It Work
 
