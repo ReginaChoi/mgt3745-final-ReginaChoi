@@ -1,0 +1,24 @@
+# Save log pulled 2026-11-19 07:35 UTC from GET https://mgt3745-hw4.rchoi47.workers.dev/entries (DDR-007)
+# Post-deployment rows (deploy: 2026-11-18 03:23 UTC). Eval rows (eval-*/export-eval-*) excluded.
+# Windows below are about 5 minutes either side of each save, NOT the real session start/end. For DECISION-001, rerun each window with the start and end times from your session notes.
+
+{"id":31,"path_id":"forensic","skill_name":"Reading financial statements critically","evidence_text":"Building DCF model for equity research and ensuring that the financials were accurate and up to date based on existing financial information like income statement and balance sheets for the company.","created_at":"2026-11-18 15:06:25"}
+{"id":32,"path_id":"forensic","skill_name":"Reading financial statements critically","evidence_text":"Took advanced level accounting classes that taught us to make proper evaluations and conclusions of an entity's financial standing after thorough observation.","created_at":"2026-11-19 00:01:12"}
+{"id":33,"path_id":"forensic","skill_name":"Reading financial statements critically","evidence_text":"Took advanced level accounting classes that taught us to make proper evaluations and conclusions of an entity's financial standing after thorough observation.","created_at":"2026-11-19 00:01:12"}
+{"id":34,"path_id":"audit","skill_name":"Explaining findings to a client","evidence_text":"At my auditing firm I presented an account our findings, highlighting financial discrepancies and regulatory initiatives","created_at":"2026-11-19 02:05:47"}
+
+$ node evals/queries/evidence-in-window.js "2026-11-18 15:00" "2026-11-18 15:10"
+31 2026-11-18 15:06:25 forensic | Reading financial statements critically
+saved in window: 1 (at least 1 counts as "saved evidence")
+
+$ node evals/queries/evidence-in-window.js "2026-11-18 23:55" "2026-11-19 00:05"
+32 2026-11-19 00:01:12 forensic | Reading financial statements critically
+33 2026-11-19 00:01:12 forensic | Reading financial statements critically
+saved in window: 2 (at least 1 counts as "saved evidence")
+
+$ node evals/queries/evidence-in-window.js "2026-11-19 02:00" "2026-11-19 02:10"
+34 2026-11-19 02:05:47 audit | Explaining findings to a client
+saved in window: 1 (at least 1 counts as "saved evidence")
+
+$ node evals/queries/guardrail-personal-data.js
+rows: 32, flagged for review: 0

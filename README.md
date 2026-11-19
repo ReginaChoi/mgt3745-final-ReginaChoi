@@ -6,7 +6,7 @@
 - Worker API (Cloudflare): https://mgt3745-hw4.rchoi47.workers.dev/entries
 - Page (GitHub Pages): https://reginachoi.github.io/mgt3745-final-ReginaChoi/ (deployed 2026-11-17, [docs/DEPLOY.md](docs/DEPLOY.md))
 
-**Status:** deployed, waiting on real users. The skill list (F-01), evidence log (F-03) and export (F-06) run on GitHub Pages against the deployed Worker and D1, and `npm test` passes 4/4. The Worker's CORS origin is the Pages site. No real-user sessions are recorded yet (docs/FEEDBACK.md).
+**Status:** deployed, first real-user saves in. The skill list (F-01), evidence log (F-03) and export (F-06) run on GitHub Pages against the deployed Worker and D1. Since the 2026-11-17 deploy, D1 holds saves in three separate windows on 2026-11-18 ET (rows 31 to 34, 0 flagged by the personal-data guardrail); the observation write-ups are in [docs/FEEDBACK.md](docs/FEEDBACK.md). Known bug: the evidence form can double-submit (rows 32 and 33), see [docs/DDR-007.md](docs/DDR-007.md).
 
 **Hours spent:** 31.25 recorded so far: HW3 14 (mgt3745-hw3 README), HW4 12 (mgt3745-hw4 README), HW5 5.25 (tool run plus review and fixes, [docs/DDR-001.md](docs/DDR-001.md)). HW1, HW2 and HW7 weren't tracked, so the real total is higher.
 
