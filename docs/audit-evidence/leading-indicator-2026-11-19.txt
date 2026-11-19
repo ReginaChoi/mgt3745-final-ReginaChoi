@@ -1,0 +1,30 @@
+# Leading indicator (DECISION-001): a save within 5 minutes of opening the page, no help. Times UTC (ET + 5). Pulled 2026-11-19 07:46 UTC, DDR-009.
+# Session 1 opened 10:00 AM ET (my notes). Session 2 opened 6:49 PM ET (my notes). Session 3: open time not noted; form started 8:59 PM ET, so the page opened at or before then and this window is the most generous one possible.
+
+## S1 first 5 min
+$ node evals/queries/evidence-in-window.js "2026-11-18 15:00" "2026-11-18 15:05"
+saved in window: 0 (at least 1 counts as "saved evidence")
+
+## S1 whole session
+$ node evals/queries/evidence-in-window.js "2026-11-18 15:00" "2026-11-18 15:07"
+31 2026-11-18 15:06:25 forensic | Reading financial statements critically
+saved in window: 1 (at least 1 counts as "saved evidence")
+
+## S2 first 5 min
+$ node evals/queries/evidence-in-window.js "2026-11-18 23:49" "2026-11-18 23:54"
+saved in window: 0 (at least 1 counts as "saved evidence")
+
+## S2 whole session
+$ node evals/queries/evidence-in-window.js "2026-11-18 23:49" "2026-11-19 00:02"
+32 2026-11-19 00:01:12 forensic | Reading financial statements critically
+33 2026-11-19 00:01:12 forensic | Reading financial statements critically
+saved in window: 2 (at least 1 counts as "saved evidence")
+
+## S3 first 5 min (upper bound)
+$ node evals/queries/evidence-in-window.js "2026-11-19 01:59" "2026-11-19 02:04"
+saved in window: 0 (at least 1 counts as "saved evidence")
+
+## S3 whole session
+$ node evals/queries/evidence-in-window.js "2026-11-19 01:59" "2026-11-19 02:06"
+34 2026-11-19 02:05:47 audit | Explaining findings to a client
+saved in window: 1 (at least 1 counts as "saved evidence")
