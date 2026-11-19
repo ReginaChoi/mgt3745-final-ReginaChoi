@@ -3,7 +3,7 @@
 Two graders score each real saved row on its own, then compare. Grader 2 sees only this sheet and the raw rows below, never my notes or verdicts (course rule: a judge sees the raw data, not my summary). Claude Code wrote this sheet ([DDR-010](DDR-010.md)) and built the fixes, so it is not a grader.
 
 - **Grader 1:** Regina Choi
-- **Grader 2:** ChatGPT (OpenAI), model: _fill in_, one prompt with no follow-ups, see [DDR-012](DDR-012.md). A person would be stronger; no second person was available.
+- **Grader 2:** ChatGPT (OpenAI), model: GPT-6, one prompt with no follow-ups, see [DDR-012](DDR-012.md). A person would be stronger; no second person was available.
 - **Date graded:** 2026-11-19
 - **Order (as it actually happened):** DDR-012 planned to commit my answers before ChatGPT ran, but they weren't committed first. Both sets reached the repo together in this commit, so the history can't show my answers were independent. _Add one line: did I grade before reading ChatGPT's answers?_
 
@@ -38,3 +38,22 @@ Two graders score each real saved row on its own, then compare. Grader 2 sees on
 | 34 | 4 Safe | Yes ("yes") | Yes: Contains no names, emails, student IDs, or grades. | Yes |
 
 **Agreement: 11 of 12.** The one disagreement is row 32, Specific. I said yes, that an interviewer "can somewhat follow up"; ChatGPT said no, because it names no course, assignment or task. Both readings see the same gap: row 32 is the vaguest entry, the kind of evidence DECISION-001's held-back alternative (an example under each skill) is meant to improve. Grader 1 answers are as I wrote them; Grader 2's are ChatGPT's reply word for word. Result recorded in context/EVALS.md.
+
+## Grader 1 reasons, written out later (2026-11-19)
+
+I wrote these fuller reasons after I'd seen ChatGPT's table, so they aren't independent of it. My first answers in the table above are the graded record. The Yes/No answers are the same in both, so agreement is unchanged at 11 of 12.
+
+| Row | Question | Yes/No | Reason |
+|---|---|---|---|
+| 31 | Real | Yes | It sounds like something the person actually worked on. |
+| 31 | Specific | Yes | It gives an idea of what they worked on, so an interviewer could ask more about it. |
+| 31 | Fits the skill | Yes | It shows that they worked with financial statements and checked the information for accuracy. |
+| 31 | Safe | Yes | There are no names, emails, student IDs, or grades included. |
+| 32 | Real | Yes | It describes accounting classes the person actually took. |
+| 32 | Specific | Yes | An interviewer could ask more about the classes and what they learned. |
+| 32 | Fits the skill | Yes | It shows that they learned how to evaluate an entity's financial standing. |
+| 32 | Safe | Yes | There are no names, emails, student IDs, or grades included. |
+| 34 | Real | Yes | It sounds like the person actually presented findings at an auditing firm. |
+| 34 | Specific | Yes | An interviewer could ask more about the findings they presented and what discrepancies they found. |
+| 34 | Fits the skill | Yes | It shows that they communicated audit findings and financial discrepancies. |
+| 34 | Safe | Yes | There are no names, emails, student IDs, or grades included. |
