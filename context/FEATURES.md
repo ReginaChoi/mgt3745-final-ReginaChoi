@@ -49,6 +49,7 @@ Platform, data, privacy, scope, and relevant limits: this is a tracking system, 
 - AC-6, state-driven: WHILE peer comparison is disabled, THE SYSTEM SHALL NOT display any other student's data.
 - AC-7, optional: WHERE a career path is inactive, THE SYSTEM SHALL still preserve evidence logged under it. **Not implemented** (see Scope); no UI exists to mark a path inactive. Classified separately below.
 - AC-8, unwanted (added HW4): IF the evidence text submitted to the server is missing or longer than 200 characters, THEN THE SYSTEM SHALL reject the request with a 400 status and a message naming the problem. This is the validation rule worker.js adds beyond the checks app.js already runs on the client, since a request can reach the Worker without going through the page at all.
+- AC-13, unwanted (added 2026-11-19, docs/DDR-008.md): IF a student submits the evidence form again while a save is still in flight, THEN THE SYSTEM SHALL ignore the second submit, so one save writes one row. Added after D1 rows 32 and 33 showed a real user's evidence saved twice in the same second (docs/DDR-007.md).
 
 ### F-06 - Exportable skill summary
 

@@ -164,8 +164,14 @@
     renderSkills();
   });
 
+  const saveButton = evidenceForm.querySelector('button[type="submit"]');
+
   evidenceForm.addEventListener('submit', async event => {
     event.preventDefault();
+    // A second click or Enter while the POST is in flight saved the same
+    // evidence twice (D1 rows 32 and 33, docs/DDR-007.md). AC-13: IF a student
+    // submits again while a save is in flight, THEN THE SYSTEM SHALL ignore it.
+    if (saveButton.disabled) return;
 
     const chosenSkill = skillSelect.value;
     const candidate = evidenceInput.value.trim();
@@ -190,6 +196,7 @@
     evidenceError.textContent = '';
 
     let saved;
+    saveButton.disabled = true;
     try {
       saved = await saveEvidence(selectedPathId, chosenSkill, candidate);
     } catch {
@@ -199,6 +206,8 @@
       evidenceError.textContent = 'Could not reach the server. Check your connection and try again.';
       saveStatus.textContent = '';
       return;
+    } finally {
+      saveButton.disabled = false;
     }
 
     if (!saved) return;
