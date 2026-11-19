@@ -37,7 +37,7 @@ Copied from the PROJECT.md success measures so the stop number sits next to the 
 | Guardrail (a save missing from GET /entries isn't shown as Evidenced) | evals/page.test.js (offline) | Pass | 2026-11-19 |
 | F-03 AC-14 (box grows; count out of 200) | evals/page.test.js (offline) | Pass | 2026-11-19 |
 
-The page evals load app.js into a small fake DOM with a fake fetch, so they never write to D1. Against the pre-2026-11-19 app.js, 5 of the 6 fail (the guardrail test passes there only because the old page didn't remember saves at all). `npm test` result: see the dated line below.
+The page evals load app.js into a small fake DOM with a fake fetch, so they never write to D1. Against the pre-2026-11-19 app.js, 5 of the 6 fail (the guardrail test passes there only because the old page didn't remember saves at all). `npm test` on 2026-11-19 (after the page fixes, outside any session window): tests 10, pass 10, fail 0.
 
 ## Judgment evals
 | Item | Grader 1 | Grader 2 | Agree? |

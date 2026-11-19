@@ -6,7 +6,7 @@
 - Worker API (Cloudflare): https://mgt3745-hw4.rchoi47.workers.dev/entries
 - Page (GitHub Pages): https://reginachoi.github.io/mgt3745-final-ReginaChoi/ (deployed 2026-11-17, [docs/DEPLOY.md](docs/DEPLOY.md))
 
-**Status:** deployed, first real-user saves in. The skill list (F-01), evidence log (F-03) and export (F-06) run on GitHub Pages against the deployed Worker and D1. Since the 2026-11-17 deploy, D1 holds saves in three separate windows on 2026-11-18 ET (rows 31 to 34, 0 flagged by the personal-data guardrail); the observation write-ups are in [docs/FEEDBACK.md](docs/FEEDBACK.md). Known bug: the evidence form can double-submit (rows 32 and 33), see [docs/DDR-007.md](docs/DDR-007.md).
+**Status:** deployed; three real users observed on 2026-11-18 ([docs/FEEDBACK.md](docs/FEEDBACK.md)); iterating. 3 of 3 saved evidence with no help, but 0 of 3 within 5 minutes, so [DECISION-001](docs/DECISION-001.md) is resolved as iterate. On 2026-11-19 I shipped session 2's fixes (an evidence box that grows, a save confirmation, a progress line) and fixed AC-6: the page had been showing every visitor's evidence as the student's own ([ADR-002](docs/ADR-002.md)). `npm test` passes 10/10. Next: at least 2 more users on the new version, then the production verdict.
 
 **Hours spent:** 31.25 recorded so far: HW3 14 (mgt3745-hw3 README), HW4 12 (mgt3745-hw4 README), HW5 5.25 (tool run plus review and fixes, [docs/DDR-001.md](docs/DDR-001.md)). HW1, HW2 and HW7 weren't tracked, so the real total is higher.
 
@@ -22,7 +22,7 @@ An accounting student or recent graduate aiming at audit, forensic accounting, o
 
 ```bash
 npm install
-npm test                 # code evals in evals/, run against the deployed Worker (set API=... to use another)
+npm test                 # evals/: page evals run offline; Worker evals write test rows to the deployed D1 (set API=... to use another), so never run during a user session
 cd worker && npx wrangler dev
 ```
 
@@ -51,8 +51,10 @@ Milestone check-in items 1 to 8 are numbered in the first column.
 | 6 | First DDR (bolt.new, F-06) and the delegation log | [docs/DDR-001.md](docs/DDR-001.md) (2026-10-01), [docs/DDR-LOG.md](docs/DDR-LOG.md) |
 | 7 | Context Scaffold Audit 1 | [docs/AUDIT.md](docs/AUDIT.md) |
 | 8 | Sourcing Audit (HW7) and the tools ledger | [docs/SOURCING-AUDIT.md](docs/SOURCING-AUDIT.md), [context/TOOLS.md](context/TOOLS.md) |
-| | Decision memo (criteria committed 2026-11-17, before deployment) | [docs/DECISION-001.md](docs/DECISION-001.md) |
-| | Real-user feedback (Nov 19) | [docs/FEEDBACK.md](docs/FEEDBACK.md) |
+| | Decision memo (criteria committed 2026-11-17, before deployment; resolved 2026-11-19) | [docs/DECISION-001.md](docs/DECISION-001.md) |
+| | ADR-002: each visitor sees only their own evidence | [docs/ADR-002.md](docs/ADR-002.md) |
+| | Judgment eval for the real-user rows (two graders) | [docs/JUDGMENT-SESSIONS.md](docs/JUDGMENT-SESSIONS.md) |
+| | Real-user feedback (3 sessions, 2026-11-18) and raw query output | [docs/FEEDBACK.md](docs/FEEDBACK.md), [docs/audit-evidence/](docs/audit-evidence/) |
 | | Deployment notes | [docs/DEPLOY.md](docs/DEPLOY.md) |
 | | Decision-metric queries | [evals/queries/](evals/queries/README.md) |
 | | Self-review with Homogenization Check (Dec 14) | [docs/SELF-REVIEW.md](docs/SELF-REVIEW.md) |
@@ -61,4 +63,4 @@ Milestone check-in items 1 to 8 are numbered in the first column.
 
 ## AI Use
 
-Claude Code (Claude Opus 5.5) helped run the HW7 Sourcing Audit and port HW5 into this repo, logged in [docs/DDR-003.md](docs/DDR-003.md). bolt.new generated the first version of F-06 (the export) in HW5, and I reviewed and fixed it before keeping it ([docs/DDR-001.md](docs/DDR-001.md)). GitHub Copilot helped write the HW4 Worker and D1 backend ([docs/DDR-002.md](docs/DDR-002.md)). Google AI Studio was tried for F-06 but errored before producing code. In HW6 it did build a feature for the team problem, but none of that code is in SkillPath. The details and verification are in [docs/DDR-LOG.md](docs/DDR-LOG.md).
+Claude Code (Claude Opus 5.5) helped run the HW7 Sourcing Audit and port HW5 into this repo, logged in [docs/DDR-003.md](docs/DDR-003.md). bolt.new generated the first version of F-06 (the export) in HW5, and I reviewed and fixed it before keeping it ([docs/DDR-001.md](docs/DDR-001.md)). Claude Code also pulled the Module 12 save log, wrote up my session notes, fixed the double save, built the session 2 fixes and the page evals, and drafted the RAT verdict and the DECISION-001 resolution from the raw data ([DDR-007](docs/DDR-007.md) to [DDR-010](docs/DDR-010.md)). The user sessions, the disappointment answers and the choice of what to build were mine. GitHub Copilot helped write the HW4 Worker and D1 backend ([docs/DDR-002.md](docs/DDR-002.md)). Google AI Studio was tried for F-06 but errored before producing code. In HW6 it did build a feature for the team problem, but none of that code is in SkillPath. The details and verification are in [docs/DDR-LOG.md](docs/DDR-LOG.md).
