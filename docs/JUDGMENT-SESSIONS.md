@@ -5,7 +5,7 @@ Two graders score each real saved row on its own, then compare. Grader 2 sees on
 - **Grader 1:** Regina Choi
 - **Grader 2:** ChatGPT (OpenAI), model: GPT-6, one prompt with no follow-ups, see [DDR-012](DDR-012.md). A person would be stronger; no second person was available.
 - **Date graded:** 2026-11-19
-- **Order (as it actually happened):** DDR-012 planned to commit my answers before ChatGPT ran, but they weren't committed first. Both sets reached the repo together in this commit, so the history can't show my answers were independent. _Add one line: did I grade before reading ChatGPT's answers?_
+- **Order (as it actually happened):** DDR-012 planned to commit my answers before ChatGPT ran, but they weren't committed first. Both sets reached the repo together in this commit, so the history can't show my answers were independent. I graded before reading ChatGPT's answers (my statement, 2026-11-19), but the commit history can't confirm it.
 
 ## The rows (raw, from `GET /entries`; row 33 is a duplicate of 32 and isn't graded)
 
@@ -41,7 +41,7 @@ Two graders score each real saved row on its own, then compare. Grader 2 sees on
 
 ## Grader 1 reasons, written out later (2026-11-19)
 
-I wrote these fuller reasons after I'd seen ChatGPT's table, so they aren't independent of it. My first answers in the table above are the graded record. The Yes/No answers are the same in both, so agreement is unchanged at 11 of 12.
+I wrote these fuller reasons myself, with no AI help, after I'd seen ChatGPT's table, so they aren't independent of it. My first answers in the table above are the graded record. The Yes/No answers are the same in both, so agreement is unchanged at 11 of 12.
 
 | Row | Question | Yes/No | Reason |
 |---|---|---|---|
