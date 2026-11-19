@@ -1,16 +1,16 @@
 # Architecture
 
-## Current system (final project, 2026-11-12)
+## Current system (final project, updated 2026-11-19)
 
-The final project's decision record is [docs/ADR-001.md](../docs/ADR-001.md). The HW3 and HW4 ADRs further down this file are kept as history. They're labeled "HW3 ADR-001" and "HW4 ADR-002" so they don't get confused with docs/ADR-001.
+The final project's decision records are [docs/ADR-001.md](../docs/ADR-001.md) and [docs/ADR-002.md](../docs/ADR-002.md) (each visitor sees only their own saves). The HW3 and HW4 ADRs further down this file are kept as history. They're labeled "HW3 ADR-001" and "HW4 ADR-002" so they don't get confused with docs/ADR-001.
 
 ```mermaid
 flowchart LR
-  S[Student's browser<br/>index.html, app.js, styles.css] -- "GET /entries (read all evidence)" --> W
+  S[Student's browser<br/>index.html, app.js, styles.css<br/>localStorage: my saves, ADR-002] -- "GET /entries (read all evidence; page shows only my saves)" --> W
   S -- "POST /entries {pathId, skillName, evidenceText}" --> W
   W[Cloudflare Worker<br/>mgt3745-hw4, worker/src/index.js] -- "prepare().bind() INSERT / SELECT" --> D[(Cloudflare D1<br/>mgt3745-entries, table evidence)]
   W -- "JSON rows / 201 / 400 with reason" --> S
-  P[GitHub Pages<br/>static files] -- "serves page (planned, Module 12)" --> S
+  P[GitHub Pages<br/>static files] -- "serves page (live since 2026-11-17)" --> S
   Dev[Me: wrangler 4.160.1<br/>with my Cloudflare login] -- "deploy, d1 export" --> W
   Dev --> D
 ```
@@ -21,7 +21,8 @@ flowchart LR
 |---|---|---|---|
 | Browser → Worker | The path ID, skill name, and evidence text a student types (1 to 200 chars, checked again on the server, AC-8) | Out of the student's device | Cloudflare, under free-tier terms; request IP and timestamp are logged by default |
 | Worker → D1 | The same three fields, stored with a timestamp | Within Cloudflare | Cloudflare stores it; I administer it |
-| Worker → Browser | **Every** evidence row in the table, not just the current student's | Back to any visitor | Anyone with the URL can read it. That's why the PROJECT.md guardrail bans names, IDs, and grades in evidence |
+| Worker → Browser | **Every** evidence row in the table, not just the current student's | Back to any visitor | Anyone with the URL can read it. That's why the PROJECT.md guardrail bans names, IDs, and grades in evidence. Since 2026-11-19 the page *shows* only the saves this browser made (ADR-002), but the API still returns every row |
+| Browser → its own localStorage | Which saves this browser made (path, skill, text) | Stays on the device | The student; clearing site data hides their evidence on the page, but the rows stay in D1 (ADR-002) |
 | My machine → Cloudflare | Code deploys and database exports through wrangler | Out | My Cloudflare login token, stored in my user config, never in the repo |
 | Repo → AI builders | Spec and context files I paste (bolt.new, AI Studio) or the repo itself (Copilot, Claude Code) | Out | Each vendor's terms; see context/TOOLS.md. No student data or credentials go to them |
 

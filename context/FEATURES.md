@@ -32,8 +32,8 @@ Sequence, conditions, actions, and visible outcomes for F-03 (with F-06 as step 
 1. The page loads and reads any previously saved evidence, now from the deployed Worker instead of browser storage.
 2. The student selects a career path from the available paths.
 3. The system displays the skills associated with that path, each marked not yet evidenced or evidenced.
-4. The student selects a skill and enters a short description of evidence from coursework, a project, or an internship.
-5. The system sends the evidence to the Worker, marks that skill evidenced once the server confirms it, and redraws the list. If the save fails, the entered text is preserved and an error is shown.
+4. The student selects a skill and enters a short description of evidence from coursework, a project, or an internship. The box grows as they type and shows a character count (AC-14, added 2026-11-19).
+5. The system sends the evidence to the Worker, marks that skill evidenced once the server confirms it, and redraws the list. A confirmation shows the saved text and its skill (AC-15), and a progress line shows how many of the path's skills have the student's evidence, saying "Done" when all do (AC-16). If the save fails, the entered text is preserved and an error is shown. Since 2026-11-19 the page shows only the evidence this browser saved (AC-6, docs/ADR-002.md).
 6. The student marks a skill in progress as an intermediate state between not yet evidenced and evidenced. (Deferred.)
 7. The student exports a summary of evidenced skills. (Implemented in HW5 as F-06, AC-9 to AC-12.)
 
@@ -46,10 +46,13 @@ Platform, data, privacy, scope, and relevant limits: this is a tracking system, 
 - AC-3, unwanted: IF a student submits evidence with no skill selected or with empty text, THEN THE SYSTEM SHALL show an error and preserve the entered text.
 - AC-4, unwanted: IF the save fails, THEN THE SYSTEM SHALL keep the entered text on screen and name the reason.
 - AC-5, state-driven: WHILE a skill has no attached evidence, THE SYSTEM SHALL display it as "not yet evidenced."
-- AC-6, state-driven: WHILE peer comparison is disabled, THE SYSTEM SHALL NOT display any other student's data.
+- AC-6, state-driven: WHILE peer comparison is disabled, THE SYSTEM SHALL NOT display any other student's data. **Failed in production on 2026-11-18** (with three real users the page showed every row as the visitor's own), **fixed 2026-11-19** by showing only this browser's saves (docs/ADR-002.md, evals/page.test.js).
 - AC-7, optional: WHERE a career path is inactive, THE SYSTEM SHALL still preserve evidence logged under it. **Not implemented** (see Scope); no UI exists to mark a path inactive. Classified separately below.
 - AC-8, unwanted (added HW4): IF the evidence text submitted to the server is missing or longer than 200 characters, THEN THE SYSTEM SHALL reject the request with a 400 status and a message naming the problem. This is the validation rule worker.js adds beyond the checks app.js already runs on the client, since a request can reach the Worker without going through the page at all.
 - AC-13, unwanted (added 2026-11-19, docs/DDR-008.md): IF a student submits the evidence form again while a save is still in flight, THEN THE SYSTEM SHALL ignore the second submit, so one save writes one row. Added after D1 rows 32 and 33 showed a real user's evidence saved twice in the same second (docs/DDR-007.md).
+- AC-14, state-driven (added 2026-11-19, docs/DDR-010.md): WHILE the student types evidence, THE SYSTEM SHALL grow the box to show all of the text and show the character count out of 200. From session 2: the one-line box hid the start of what they typed.
+- AC-15, event-driven (added 2026-11-19): WHEN a save succeeds, THE SYSTEM SHALL show the saved text and its skill in a confirmation. From session 2: the text "just disappears, so i cant tell if it really was saved".
+- AC-16, state-driven (added 2026-11-19): WHILE a career path is selected, THE SYSTEM SHALL show how many of its skills have the student's evidence, and SHALL say "Done" when all of them do. From session 2: "is that it?"
 
 ### F-06 - Exportable skill summary
 
