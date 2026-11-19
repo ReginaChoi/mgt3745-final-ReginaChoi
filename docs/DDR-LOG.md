@@ -13,3 +13,4 @@
 | [DDR-009](DDR-009.md) | 2026-11-19 | Sessions 1 and 2 write-up; leading indicator on real session times | Claude Code (Claude Opus 5.5) | see file | window row ids match the save log | Done; roles, disappointment answers and the decision still mine |
 | [DDR-010](DDR-010.md) | 2026-11-19 | Session 2 fixes (AC-14 to AC-16), AC-6 / ADR-002, disappointment answers, RAT verdict, DECISION-001 resolved, deploy | Claude Code (Claude Opus 5.5) | see file | page evals 6/6 (5 fail on old code); `npm test` 10/10 | Done; my browser check, second grader, next users and verdicts still mine |
 | [DDR-011](DDR-011.md) | 2026-11-19 | User roles, README hours, DDR-007 to DDR-010 hours corrected | Claude Code (Claude Opus 5.5) | under 0.1 | matched to git log times | Done |
+| [DDR-012](DDR-012.md) | 2026-11-19 | Second grader for the real-user evidence rows | ChatGPT (OpenAI) | n/a | agreement out of 12 | Open: my Grader 1 answers first, then ChatGPT |

@@ -3,7 +3,7 @@
 Two graders score each real saved row on its own, then compare. Grader 2 sees only this sheet and the raw rows below, never my notes or verdicts (course rule: a judge sees the raw data, not my summary). Claude Code wrote this sheet ([DDR-010](DDR-010.md)) and built the fixes, so it is not a grader.
 
 - **Grader 1:** Regina Choi
-- **Grader 2:** _a classmate, named here before grading_
+- **Grader 2:** ChatGPT (OpenAI), _model_, one prompt, see [DDR-012](DDR-012.md). A person would be stronger; no second person was available. Grader 1 answers are committed before Grader 2 runs.
 - **Date graded:** _YYYY-MM-DD_
 
 ## The rows (raw, from `GET /entries`; row 33 is a duplicate of 32 and isn't graded)
