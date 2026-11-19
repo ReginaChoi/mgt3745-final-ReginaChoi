@@ -38,12 +38,43 @@
   const summaryText = document.querySelector('#summary-text');
   const copyBtn = document.querySelector('#copy-btn');
   const copyStatus = document.querySelector('#copy-status');
+  const evidenceCount = document.querySelector('#evidence-count');
+  const pathProgress = document.querySelector('#path-progress');
+
+  // AC-6: WHILE peer comparison is disabled, THE SYSTEM SHALL NOT display any
+  // other student's data. The D1 table is shared and has no user column
+  // (ADR-001), so this browser remembers which saves it made and shows only
+  // those (ADR-002). Before 2026-11-19 every visitor saw every row, test rows
+  // included, which also made "Evidenced" and any progress count wrong.
+  const mineKey = 'skillpath-my-evidence';
+  let myEvidence = readMine();
 
   let savedEvidence = {};
   let selectedPathId = '';
 
+  function readMine() {
+    try {
+      const stored = JSON.parse(localStorage.getItem(mineKey) || '[]');
+      return Array.isArray(stored) ? stored : [];
+    } catch {
+      return [];
+    }
+  }
+
+  function writeMine() {
+    try {
+      localStorage.setItem(mineKey, JSON.stringify(myEvidence));
+    } catch {
+      // Storage blocked (private window): saves still show for this visit.
+    }
+  }
+
   function evidenceKey(pathId, skillName) {
     return `${pathId}::${skillName}`;
+  }
+
+  function rowKey(pathId, skillName, evidenceText) {
+    return JSON.stringify([pathId, skillName, evidenceText]);
   }
 
   function findPath(pathId) {
@@ -66,9 +97,14 @@
       return {};
     }
     const rows = await response.json();
+    // Guardrail: a save counts only if the server still has it, so the page
+    // never shows "Evidenced" for something missing from GET /entries.
+    const onServer = new Set(rows.map(row => rowKey(row.path_id, row.skill_name, row.evidence_text)));
     const evidence = {};
-    rows.forEach(row => {
-      evidence[evidenceKey(row.path_id, row.skill_name)] = row.evidence_text;
+    myEvidence.forEach(item => {
+      if (onServer.has(rowKey(item.pathId, item.skillName, item.evidenceText))) {
+        evidence[evidenceKey(item.pathId, item.skillName)] = item.evidenceText;
+      }
     });
     return evidence;
   }
@@ -122,6 +158,7 @@
       const emptyItem = document.createElement('li');
       emptyItem.textContent = 'Select a career path to see its skills.';
       skillList.append(emptyItem);
+      renderProgress();
       return;
     }
 
@@ -155,6 +192,57 @@
       option.textContent = skillName;
       skillSelect.append(option);
     });
+
+    renderProgress();
+  }
+
+  // AC-16: WHILE a career path is selected, THE SYSTEM SHALL show how many of
+  // its skills have the student's evidence, and say when all of them do.
+  // Session 2 finished and asked "is that it?" (docs/FEEDBACK.md, S2-3).
+  function renderProgress() {
+    const currentPath = findPath(selectedPathId);
+    if (!currentPath) {
+      pathProgress.hidden = true;
+      pathProgress.textContent = '';
+      return;
+    }
+    const total = currentPath.skills.length;
+    const done = currentPath.skills.filter(
+      skillName => savedEvidence[evidenceKey(selectedPathId, skillName)]
+    ).length;
+
+    pathProgress.hidden = false;
+    pathProgress.dataset.state = done === total ? 'complete' : 'in-progress';
+    if (done === total) {
+      pathProgress.textContent = `Done: all ${total} skills on this path have your evidence. Export your summary below, or pick another path.`;
+    } else if (done === 0) {
+      pathProgress.textContent = `Your progress: 0 of ${total} skills have evidence. Pick a skill below and describe something you did.`;
+    } else {
+      pathProgress.textContent = `Your progress: ${done} of ${total} skills have evidence. Add evidence for another skill, or export your summary when you're done.`;
+    }
+  }
+
+  // AC-14: WHILE the student types evidence, THE SYSTEM SHALL grow the box to
+  // show all of the text and show the character count. Session 2: the one-line
+  // box hid the start of what they typed (docs/FEEDBACK.md, S2-1).
+  function fitEvidenceBox() {
+    evidenceInput.style.height = 'auto';
+    evidenceInput.style.height = evidenceInput.scrollHeight + 'px';
+    evidenceCount.textContent = `${Array.from(evidenceInput.value).length} / 200 characters`;
+  }
+
+  evidenceInput.addEventListener('input', fitEvidenceBox);
+
+  // AC-15: WHEN a save succeeds, THE SYSTEM SHALL show the saved text and its
+  // skill in a confirmation. Session 2 couldn't tell whether the text that
+  // vanished was saved or erased (docs/FEEDBACK.md, S2-2).
+  function showSaved(skillName, evidenceText) {
+    const heading = document.createElement('strong');
+    heading.textContent = 'Saved. ';
+    const detail = document.createElement('span');
+    detail.textContent = `"${evidenceText}" is now evidence for ${skillName}. You can see it in the skill list above.`;
+    saveStatus.replaceChildren(heading, detail);
+    saveStatus.dataset.state = 'saved';
   }
 
   pathSelect.addEventListener('change', () => {
@@ -212,12 +300,24 @@
 
     if (!saved) return;
 
-    savedEvidence = await loadEvidence();
+    myEvidence.push({ pathId: selectedPathId, skillName: chosenSkill, evidenceText: candidate });
+    writeMine();
+    try {
+      savedEvidence = await loadEvidence();
+    } catch {
+      // The save went through, but the reload failed: keep the last list.
+    }
     renderSkills();
     evidenceInput.value = '';
     skillSelect.value = '';
+    fitEvidenceBox();
     evidenceInput.focus();
-    saveStatus.textContent = `Evidence saved. ${chosenSkill} is now evidenced.`;
+    if (savedEvidence[evidenceKey(selectedPathId, chosenSkill)] === candidate) {
+      showSaved(chosenSkill, candidate);
+    } else {
+      saveStatus.dataset.state = '';
+      saveStatus.textContent = 'Sent, but the server has not confirmed it yet. Reload the page to check before adding more.';
+    }
   });
 
   function generateSummary() {
@@ -286,6 +386,7 @@
 
   async function init() {
     renderPathOptions();
+    fitEvidenceBox();
     try {
       savedEvidence = await loadEvidence();
     } catch {

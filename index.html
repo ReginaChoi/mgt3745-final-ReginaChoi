@@ -19,6 +19,7 @@
     <select id="path-select" name="path"></select>
  
     <h2>Skills for this path</h2>
+    <p id="path-progress" role="status" aria-live="polite" hidden></p>
     <ul id="skill-list" aria-label="Skills for the selected career path"></ul>
  
     <h2>Attach evidence</h2>
@@ -28,14 +29,14 @@
  
       <label for="evidence-input">What you did</label>
       <p id="evidence-help">A class, project, or internship task that shows this skill. 1–200 characters. Everyone using this page can read saved evidence, so leave out names, emails, student IDs, and grades.</p>
-      <input id="evidence-input" name="evidence" type="text" autocomplete="off"
-             aria-describedby="evidence-help evidence-error">
- 
+      <textarea id="evidence-input" name="evidence" rows="3" autocomplete="off"
+                aria-describedby="evidence-help evidence-count evidence-error"></textarea>
+      <p id="evidence-count">0 / 200 characters</p>
+
       <button type="submit">Save evidence</button>
       <p id="evidence-error" role="alert"></p>
+      <p id="save-status" role="status" aria-live="polite"></p>
     </form>
- 
-    <p id="save-status" role="status" aria-live="polite"></p>
 
     <h2>Export skill summary</h2>
     <p id="export-help">Generate a text summary of your career path, skills, and evidence that you can copy into a resume or portfolio.</p>
